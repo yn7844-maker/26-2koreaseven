@@ -1,0 +1,9 @@
+1. ZIP 압축을 해제하세요.
+2. Presentation-Kit.html을 Chrome으로 여세요. Node.js 설치나 터미널 명령은 필요 없습니다.
+3. 왼쪽 장표를 선택하고 Play로 재생하세요.
+4. 현재 장표 JSON 편집으로 내용·데이터를 바꿀 수 있습니다.
+5. JSON 저장으로 변경 내용을 보관하고 JSON 불러오기로 복원하세요. HTML 원본은 자동 변경되지 않습니다.
+6. Export PPTX로 편집 가능한 PowerPoint 파일을 만드세요.
+7. presentation.pptx는 이미 생성된 22장 데모입니다. 수치는 모두 가상 데이터입니다.
+
+참고: 회사 PC 정책이 로컬 HTML 실행을 제한하면 별도 허용이 필요할 수 있습니다. 실제 Microsoft PowerPoint의 글꼴·편집은 최종 확인하세요.

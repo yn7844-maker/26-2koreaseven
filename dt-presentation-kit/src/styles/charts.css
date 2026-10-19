@@ -1,0 +1,15 @@
+.chart svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+.chart svg text {
+  font-family: inherit;
+}
+.validation-warning {
+  font-size: 22px;
+  padding: 24px;
+  border: 1px solid var(--negative);
+  background: var(--surface);
+}

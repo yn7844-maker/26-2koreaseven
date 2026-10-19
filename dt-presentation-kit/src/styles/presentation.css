@@ -1,0 +1,74 @@
+@import "./reset.css";
+@import "./typography.css";
+@import "./layout.css";
+@import "./components.css";
+@import "./charts.css";
+body {
+  background: #f0f3f5;
+  color: #183247;
+}
+#app {
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--textPrimary);
+}
+.display {
+  font-size: var(--displaySize);
+  font-weight: var(--displayWeight);
+  line-height: var(--displayLine);
+  letter-spacing: var(--displaySpacing);
+}
+.title {
+  font-size: var(--titleSize);
+  font-weight: var(--titleWeight);
+  line-height: var(--titleLine);
+  letter-spacing: var(--titleSpacing);
+}
+.sectionTitle {
+  font-size: var(--sectionTitleSize);
+  font-weight: var(--sectionTitleWeight);
+  line-height: var(--sectionTitleLine);
+  letter-spacing: var(--sectionTitleSpacing);
+}
+.subtitle {
+  font-size: var(--subtitleSize);
+  font-weight: var(--subtitleWeight);
+  line-height: var(--subtitleLine);
+  letter-spacing: var(--subtitleSpacing);
+}
+.body {
+  font-size: var(--bodySize);
+  font-weight: var(--bodyWeight);
+  line-height: var(--bodyLine);
+  letter-spacing: var(--bodySpacing);
+}
+.caption {
+  font-size: var(--captionSize);
+  font-weight: var(--captionWeight);
+  line-height: var(--captionLine);
+  letter-spacing: var(--captionSpacing);
+}
+.kpiLarge {
+  font-size: var(--kpiLargeSize);
+  font-weight: var(--kpiLargeWeight);
+  line-height: var(--kpiLargeLine);
+  letter-spacing: var(--kpiLargeSpacing);
+}
+.kpiMedium {
+  font-size: var(--kpiMediumSize);
+  font-weight: var(--kpiMediumWeight);
+  line-height: var(--kpiMediumLine);
+  letter-spacing: var(--kpiMediumSpacing);
+}
+.tableHeader {
+  font-size: var(--tableHeaderSize);
+  font-weight: var(--tableHeaderWeight);
+  line-height: var(--tableHeaderLine);
+  letter-spacing: var(--tableHeaderSpacing);
+}
+.tableBody {
+  font-size: var(--tableBodySize);
+  font-weight: var(--tableBodyWeight);
+  line-height: var(--tableBodyLine);
+  letter-spacing: var(--tableBodySpacing);
+}

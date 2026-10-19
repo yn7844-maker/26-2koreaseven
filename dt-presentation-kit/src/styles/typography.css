@@ -1,0 +1,20 @@
+@font-face {
+  font-family: Pretendard;
+  src: local("Pretendard");
+  font-display: swap;
+}
+body {
+  font-family: Pretendard, "Noto Sans KR", Arial, sans-serif;
+}
+.overline {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--accent);
+}
+.item.text,
+.item.counter {
+  white-space: pre-line;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
