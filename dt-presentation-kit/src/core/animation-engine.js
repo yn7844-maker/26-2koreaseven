@@ -6,6 +6,7 @@ export class AnimationEngine {
     this.animations = [];
     this.state = "paused";
     this.frame = 0;
+    this.userMotion = false;
   }
   restoreCounts() {
     this.node
@@ -25,19 +26,25 @@ export class AnimationEngine {
     this.node = node;
     if (
       this.mode === "static" ||
-      matchMedia("(prefers-reduced-motion: reduce)").matches
+      (matchMedia("(prefers-reduced-motion: reduce)").matches &&
+        !this.userMotion)
     ) {
       this.state = "static";
       return;
     }
     this.replay();
   }
-  replay() {
+  replay(explicit = false) {
+    if (explicit) {
+      this.userMotion = true;
+      if (this.mode === "static") this.mode = "presentation";
+    }
     this.clear();
     if (!this.node) return;
     if (
       this.mode === "static" ||
-      matchMedia("(prefers-reduced-motion: reduce)").matches
+      (matchMedia("(prefers-reduced-motion: reduce)").matches &&
+        !this.userMotion)
     ) {
       this.state = "static";
       return;
@@ -134,13 +141,18 @@ export class AnimationEngine {
     this.state = "paused";
     cancelAnimationFrame(this.frame);
   }
-  play() {
+  play(explicit = false) {
+    if (explicit) {
+      this.userMotion = true;
+      if (this.mode === "static") this.mode = "presentation";
+    }
     if (
       this.mode === "static" ||
-      matchMedia("(prefers-reduced-motion: reduce)").matches
+      (matchMedia("(prefers-reduced-motion: reduce)").matches &&
+        !this.userMotion)
     )
       return;
-    if (this.state === "finished") {
+    if (!this.animations.length || this.state === "finished") {
       this.replay();
       return;
     }
@@ -149,6 +161,7 @@ export class AnimationEngine {
     this.tick();
   }
   setMode(mode) {
+    this.userMotion = false;
     this.mode = mode;
     this.attach(this.node);
   }

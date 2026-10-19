@@ -160,7 +160,11 @@ export class PresentationEngine {
       this.message(
         issues.length
           ? "넘침 경고: " + issues.join(" · ")
-          : "가상 데이터 데모 · PPTX에서는 텍스트·도형·표·차트를 편집할 수 있습니다.",
+          : this.motion.state === "static"
+            ? this.motion.mode === "static"
+              ? "Static 모드입니다. Play 또는 Replay를 누르면 애니메이션을 재생합니다."
+              : "PC의 동작 줄이기 설정으로 자동 모션이 꺼져 있습니다. 원하시면 Play 또는 Replay를 누르세요."
+            : "모션은 장표 선택 시 한 번 재생됩니다. Replay로 다시 재생하거나 Loop로 반복하세요.",
         !!issues.length,
       );
     });
@@ -181,13 +185,22 @@ export class PresentationEngine {
     this.go(this.index - 1);
   }
   play() {
-    this.motion.play();
+    this.motion.play(true);
+    this.syncMotionUI();
   }
   pause() {
     this.motion.pause();
   }
   replay() {
-    this.motion.replay();
+    this.motion.replay(true);
+    this.syncMotionUI();
+  }
+  syncMotionUI() {
+    this.q("mode").value = this.motion.mode;
+    this.presentation.animation.mode = this.motion.mode;
+    this.message(
+      "모션 재생 중 · 다시 보려면 Replay, 반복하려면 Loop를 선택하세요.",
+    );
   }
   async fullscreen() {
     try {

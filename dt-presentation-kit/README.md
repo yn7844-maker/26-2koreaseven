@@ -69,3 +69,7 @@ npm run test:browser
 ```
 
 브라우저 테스트는 기본적으로 `/usr/bin/chromium`을 사용합니다. 다른 환경은 `CHROMIUM_PATH`를 지정하거나 `npx playwright install chromium` 후 설정의 executablePath를 조정하세요. Microsoft PowerPoint의 실제 GUI에서 열림·편집 검증은 별도 수동 점검입니다.
+
+## 설치 없는 HTML 출력
+
+`npm run export:html`로 단일 HTML을 생성합니다. 출력은 `exports/Presentation-Kit.html`입니다. HTML 모션은 장표 선택 시 한 번 재생됩니다. Replay는 다시 재생, Loop는 반복입니다. 시스템의 동작 줄이기로 자동 모션이 꺼진 경우 화면에 안내하며, 직접 Play·Replay를 누르면 재생합니다. Static에서도 Play·Replay로 presentation 모드로 전환할 수 있습니다.

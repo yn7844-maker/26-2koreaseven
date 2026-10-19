@@ -7,7 +7,7 @@
 | npm install / npm ci | 성공, package-lock 기반 재설치 확인                                           |
 | npm run build        | 성공                                                                          |
 | npm test             | 7개 통과, 건너뛴 테스트 없음                                                  |
-| npm run test:browser | Chromium 3개 통과                                                             |
+| npm run test:browser | Chromium 4개 통과                                                             |
 | 개발 서버            | index.html 및 src/main.js HTTP 200                                            |
 | 데모                 | 22장, 전체 장표 순회·기본 데이터 넘침 없음                                    |
 | 차트                 | 12종 데이터 검증·유한 좌표, SVG 표시                                          |
@@ -26,3 +26,5 @@
 - 사용자 지정 로고의 외부 CORS·접근 권한.
 
 HTML과 PPTX는 동일 모델을 사용하지만 native chart의 축·레이블 배치는 Office 렌더러에 따라 다릅니다. 모션은 HTML 전용이며 PPTX는 정적 최종값입니다. 특수 차트는 도형을 편집할 수 있고, native chart 데이터 편집은 line/bar/scatter/ring에 제공됩니다. 데이터 교체 시 기존 insight 문구의 사실관계도 함께 검토하세요.
+
+모션 회귀 검증: 시스템 동작 줄이기에서 자동 모션 정지·안내, 명시적 Play/Replay 재생, 막대의 실제 opacity 변화(0→1), Static에서 재생 모드 전환 확인.

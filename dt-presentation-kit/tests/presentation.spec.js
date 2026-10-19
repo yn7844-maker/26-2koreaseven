@@ -87,13 +87,11 @@ test("JSON roundtrip, slide ordering, 16:9 scale and overflow warning", async ({
     structuredClone(window.presentationKit.presentation),
   );
   deck.slides = [deck.slides[2], deck.slides[0], deck.slides[3]];
-  await page
-    .locator("#file")
-    .setInputFiles({
-      name: "deck.json",
-      mimeType: "application/json",
-      buffer: Buffer.from(JSON.stringify(deck)),
-    });
+  await page.locator("#file").setInputFiles({
+    name: "deck.json",
+    mimeType: "application/json",
+    buffer: Buffer.from(JSON.stringify(deck)),
+  });
   await expect(page.locator(".thumbnail")).toHaveCount(3);
   await expect(page.locator("#stage")).toContainText("74.3%");
   const rect = await page.locator("#stage").boundingBox();
@@ -132,4 +130,29 @@ test("KPI animation pauses and returns to final values in static mode", async ({
   expect(
     await page.evaluate(() => window.presentationKit.motion.animations.length),
   ).toBe(0);
+});
+
+test("explicit Play and Replay work from static and reduced motion", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await page.locator(".thumbnail").nth(4).click();
+  await expect(page.locator("#status")).toContainText("동작 줄이기");
+  expect(
+    await page.evaluate(() => presentationKit.motion.animations.length),
+  ).toBe(0);
+  await page.click("#play");
+  expect(await page.evaluate(() => presentationKit.motion.state)).toBe(
+    "playing",
+  );
+  const target = page.locator('#stage [data-motion="grow"]').first();
+  await expect(target).toHaveCSS("opacity", "0");
+  await expect(target).toHaveCSS("opacity", "1", { timeout: 7000 });
+  await page.selectOption("#mode", "static");
+  await page.click("#replay");
+  await expect(page.locator("#mode")).toHaveValue("presentation");
+  expect(
+    await page.evaluate(() => presentationKit.motion.animations.length),
+  ).toBeGreaterThan(0);
 });
