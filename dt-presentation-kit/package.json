@@ -10,7 +10,9 @@
     "test:browser": "playwright test",
     "format": "prettier --write src data docs prompts tests *.js *.json *.html README.md",
     "export:demo": "node scripts/export-demo.js",
-    "export:html": "npm run build && node scripts/export-standalone.js"
+    "export:html": "npm run build && node scripts/export-standalone.js",
+    "deck:build": "npm run build && node scripts/build-deck.js",
+    "ai:pack": "node scripts/package-authoring-kit.js"
   },
   "dependencies": {
     "d3": "^7.9.0",

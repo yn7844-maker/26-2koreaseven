@@ -1,0 +1,238 @@
+{
+  "meta": {
+    "title": "DT 추진 현황 · 8장 예제",
+    "department": "DT 추진팀",
+    "date": "2026.10"
+  },
+  "theme": {
+    "colors": {
+      "primary": "#193B53",
+      "accent": "#2A9987"
+    }
+  },
+  "animation": {
+    "mode": "presentation"
+  },
+  "slides": [
+    {
+      "id": "title",
+      "type": "title",
+      "eyebrow": "STRATEGY & EXECUTION / 2026",
+      "title": "더 나은 매장 경험,\n데이터에서 시작하다",
+      "subtitle": "Seven Eleven Digital Transformation",
+      "description": "디지털 전환 추진 현황 및 실행 로드맵",
+      "source": "시연용 가상 데이터 · 실제 회사 실적과 무관"
+    },
+    {
+      "id": "summary",
+      "type": "key-message",
+      "title": "Executive Summary",
+      "statement": "기술 도입을 넘어, 매장 운영의 기준을 바꿉니다.",
+      "points": [
+        "고객 접점의 디지털 연결",
+        "데이터 기반 의사결정 정착",
+        "반복 업무 자동화와 현장 집중"
+      ],
+      "source": "시연용 가상 데이터 · 실제 회사 실적과 무관"
+    },
+    {
+      "id": "kpis",
+      "type": "kpi",
+      "title": "핵심 지표로 보는 변화",
+      "subtitle": "성과와 실행 수준을 함께 관리합니다.",
+      "kpis": [
+        {
+          "label": "디지털 전환율",
+          "value": 74.3,
+          "unit": "%",
+          "delta": "+12.8%p"
+        },
+        {
+          "label": "적용 점포",
+          "value": 1280,
+          "unit": "개",
+          "delta": "+240개"
+        },
+        {
+          "label": "업무 시간 절감",
+          "value": 32,
+          "unit": "%",
+          "delta": "+8%p"
+        }
+      ],
+      "source": "시연용 가상 데이터 · 실제 회사 실적과 무관"
+    },
+    {
+      "id": "trend",
+      "type": "chart-insight",
+      "title": "디지털 채널, 성장의 중심으로",
+      "subtitle": "분기별 디지털 매출 추이",
+      "chart": {
+        "type": "line",
+        "data": [
+          {
+            "label": "1Q",
+            "value": 32
+          },
+          {
+            "label": "2Q",
+            "value": 47
+          },
+          {
+            "label": "3Q",
+            "value": 61
+          },
+          {
+            "label": "4Q",
+            "value": 78
+          }
+        ],
+        "unit": "억원"
+      },
+      "insights": [
+        "4Q 디지털 매출 78억원",
+        "1Q 대비 144% 성장",
+        "재구매 중심의 성장 구조 확보"
+      ],
+      "source": "시연용 가상 데이터 · 실제 회사 실적과 무관"
+    },
+    {
+      "id": "channels",
+      "type": "full-chart",
+      "title": "핵심 과제별 실행 진척",
+      "chart": {
+        "type": "horizontal-bar",
+        "data": [
+          {
+            "label": "모바일 주문",
+            "value": 86
+          },
+          {
+            "label": "매장 자동화",
+            "value": 72
+          },
+          {
+            "label": "데이터 플랫폼",
+            "value": 64
+          },
+          {
+            "label": "고객 경험",
+            "value": 53
+          }
+        ]
+      },
+      "source": "시연용 가상 데이터 · 실제 회사 실적과 무관"
+    },
+    {
+      "id": "compare",
+      "type": "comparison",
+      "title": "운영 방식의 전환",
+      "columns": [
+        {
+          "title": "AS–IS",
+          "body": "경험 중심 의사결정\n분산된 데이터 관리\n수작업 기반 반복 업무"
+        },
+        {
+          "title": "TO–BE",
+          "body": "지표 중심 의사결정\n통합 데이터 플랫폼\n자동화 기반 현장 집중"
+        }
+      ],
+      "source": "시연용 가상 데이터 · 실제 회사 실적과 무관"
+    },
+    {
+      "id": "process",
+      "type": "process",
+      "title": "현장 중심의 실행 프로세스",
+      "steps": [
+        {
+          "title": "진단",
+          "body": "현장 과제 정의"
+        },
+        {
+          "title": "설계",
+          "body": "지표·실행안 수립"
+        },
+        {
+          "title": "검증",
+          "body": "파일럿 운영"
+        },
+        {
+          "title": "확산",
+          "body": "표준화·전점 확대"
+        }
+      ],
+      "source": "시연용 가상 데이터 · 실제 회사 실적과 무관"
+    },
+    {
+      "id": "dashboard",
+      "type": "dashboard",
+      "title": "전환 성과 한눈에 보기",
+      "charts": [
+        {
+          "type": "ring-gauge",
+          "data": [
+            {
+              "label": "목표 달성률",
+              "value": 78,
+              "max": 100
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "data": [
+            {
+              "label": "1Q",
+              "value": 32
+            },
+            {
+              "label": "2Q",
+              "value": 47
+            },
+            {
+              "label": "3Q",
+              "value": 61
+            },
+            {
+              "label": "4Q",
+              "value": 78
+            }
+          ],
+          "unit": "억원"
+        },
+        {
+          "type": "horizontal-bar",
+          "data": [
+            {
+              "label": "모바일 주문",
+              "value": 86
+            },
+            {
+              "label": "매장 자동화",
+              "value": 72
+            },
+            {
+              "label": "데이터 플랫폼",
+              "value": 64
+            },
+            {
+              "label": "고객 경험",
+              "value": 53
+            }
+          ]
+        },
+        {
+          "type": "kpi-counter",
+          "data": [
+            {
+              "label": "디지털 전환율",
+              "value": 74.3,
+              "unit": "%"
+            }
+          ]
+        }
+      ],
+      "source": "시연용 가상 데이터 · 실제 회사 실적과 무관"
+    }
+  ]
+}

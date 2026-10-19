@@ -73,3 +73,13 @@ npm run test:browser
 ## 설치 없는 HTML 출력
 
 `npm run export:html`로 단일 HTML을 생성합니다. 출력은 `exports/Presentation-Kit.html`입니다. HTML 모션은 장표 선택 시 한 번 재생됩니다. Replay는 다시 재생, Loop는 반복입니다. 시스템의 동작 줄이기로 자동 모션이 꺼진 경우 화면에 안내하며, 직접 Play·Replay를 누르면 재생합니다. Static에서도 Play·Replay로 presentation 모드로 전환할 수 있습니다.
+
+## 요청서로 새 덱 생성하기
+
+저장소의 [START_HERE.md](../START_HERE.md)와 AI 프롬프트를 사용합니다. 엔진을 수정하지 않고 자료별 JSON을 생성합니다.
+
+```sh
+npm run deck:build -- --input ../presentations/example/deck.json --out exports/example
+```
+
+출력은 Presentation.html, presentation.pptx, presentation.json입니다. HTML과 PPTX는 동일한 해석 완료 데이터를 사용합니다. `--input`은 필수이며, 모든 경로는 명령을 실행한 프로젝트 폴더 기준입니다. 원본 데이터는 자동 수정하지 않습니다.

@@ -1,11 +1,10 @@
 import "./styles/presentation.css";
-import config from "./config/presentation.config.js";
-import slides from "../data/sample-presentation.js";
 import { PresentationEngine } from "./core/presentation-engine.js";
+import { resolvePresentation } from "./core/resolve-presentation.js";
 try {
   window.presentationKit = new PresentationEngine(
     document.querySelector("#app"),
-    { ...config, slides },
+    resolvePresentation(window.__DT_PRESENTATION__ ?? {}),
   );
 } catch (e) {
   document.querySelector("#app").textContent =
