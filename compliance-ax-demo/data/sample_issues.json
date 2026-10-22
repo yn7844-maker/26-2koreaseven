@@ -1,0 +1,42 @@
+[
+  {
+    "source_org": "샘플 기관",
+    "source_type": "가상 샘플",
+    "title": "[가상] 가맹점 계약 안내 개정",
+    "body": "가맹사업 법률 개정 및 시행에 따른 점주 안내 의무 검토가 필요합니다.",
+    "url": "",
+    "document_id": "demo-0",
+    "published_date": "2026-10-22",
+    "collected_at": "2026-10-22T00:00:00+00:00"
+  },
+  {
+    "source_org": "샘플 기관",
+    "source_type": "가상 샘플",
+    "title": "[가상] 유통업 표시광고 제재 사례",
+    "body": "편의점 상품 표시광고 위반에 과징금이 부과되었다는 가상 제재 사례입니다.",
+    "url": "",
+    "document_id": "demo-1",
+    "published_date": "2026-10-22",
+    "collected_at": "2026-10-22T00:00:00+00:00"
+  },
+  {
+    "source_org": "샘플 기관",
+    "source_type": "가상 샘플",
+    "title": "[가상] 개인정보 처리 가이드",
+    "body": "개인정보 보호법 개정에 따라 소비자 정보 보관 의무를 검토하는 가상 자료입니다.",
+    "url": "",
+    "document_id": "demo-2",
+    "published_date": "2026-10-22",
+    "collected_at": "2026-10-22T00:00:00+00:00"
+  },
+  {
+    "source_org": "샘플 뉴스",
+    "source_type": "가상 샘플",
+    "title": "[가상] 업계 뉴스",
+    "body": "유통 업계의 일반 뉴스로 실제 사건이 아닙니다.",
+    "url": "",
+    "document_id": "demo-3",
+    "published_date": "2026-10-22",
+    "collected_at": "2026-10-22T00:00:00+00:00"
+  }
+]
