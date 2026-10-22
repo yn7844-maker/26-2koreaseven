@@ -4,6 +4,10 @@
 
 공공/정부 API·공식 웹 → 정규화 → 이력 → 변경 탐지 → Rule Engine → 로컬 Ollama(선택) → 관련성·중요도·영향영역 → 데일리 브리핑 → Streamlit.
 
+## 다른 사람에게 보여주기
+
+설치 없이 체험할 수 있는 **공유용 웹 버전**은 [`web/`](web/README.md)에 있습니다. Vercel 설정(`vercel.json`)을 저장소 루트에 포함했습니다. 웹 버전은 가상 데이터 기반 이슈 모니터링·변경 비교·보관함·브리핑을 제공하며 실제 공공 API/LLM 호출은 하지 않습니다. 기존 Python/Streamlit은 실제 수집·로컬 분석을 위한 별도 실행 방식으로 유지합니다.
+
 ## 빠른 실행
 
 Windows: Python 3.11을 설치한 뒤 `run_windows.cmd` 실행. macOS: Python 3.11 설치 후 `bash run_mac.sh` 실행.

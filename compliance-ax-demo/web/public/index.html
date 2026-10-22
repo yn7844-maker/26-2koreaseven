@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="편의점·유통기업 준법지원팀을 위한 Compliance AX 공개 체험 데모. 가상 데이터로 규제 이슈 분석과 데일리 브리핑을 확인하세요.">
+<meta name="color-scheme" content="light">
+<title>Compliance AX · 준법 인텔리전스 데모</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230f766e'/%3E%3Cpath d='M32 12 49 19v13c0 10-9 17-17 21-8-4-17-11-17-21V19Z' fill='none' stroke='white' stroke-width='4'/%3E%3Cpath d='m24 32 6 6 11-13' fill='none' stroke='white' stroke-width='4'/%3E%3C/svg%3E">
+<style>:root{--ink:#172b34;--muted:#72808a;--teal:#087d72;--teal-light:#e7f4f0;--border:#e7ecee;--surface:#fff;--canvas:#f6f8f9;--sidebar:#102c32;--radius:14px;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;color:var(--ink);background:var(--canvas);font-synthesis:none;font-size:14px}*{box-sizing:border-box}body{margin:0}button,input,select{font:inherit}button,a,input,select{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{cursor:wait;opacity:.6}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #34b6a5;outline-offset:4px}button{color:inherit}a{color:inherit}button,a{touch-action:manipulation}.skip{position:fixed;top:-100px;left:10px;padding:12px;background:white;z-index:200}.skip:focus{top:10px}[hidden]{display:none!important}.sidebar{width:236px;background:var(--sidebar);color:#ecf4f3;position:fixed;inset:0 auto 0 0;z-index:30;padding:35px 21px;display:flex;flex-direction:column}.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-size:13px;letter-spacing:.6px;font-weight:750}.brand-sub{display:block;font-size:9px;letter-spacing:2.5px;color:#8eafaf;margin-top:5px;font-weight:500}.brand-icon{display:flex;align-items:center;justify-content:center;border:1px solid #5b9994;border-radius:10px;width:36px;height:40px;font-size:26px;font-weight:600;color:#b7f4d9;position:relative}.brand-icon span{font-size:16px;position:absolute;right:2px;top:0;background:var(--sidebar)}.workspace{margin:36px 0 27px;padding:14px 9px;border:1px solid #ffffff18;border-radius:10px;display:flex;align-items:center;gap:9px;font-size:11px;font-weight:550}.workspace small{display:block;color:#95adad;font-weight:400;font-size:10px;margin-top:5px}.workspace-avatar{background:#2c4b50;width:28px;height:30px;border-radius:6px;display:grid;place-items:center;color:#c4ebe2}.workspace-dot{width:5px;height:5px;border-radius:50%;background:#66ceaa;margin-left:auto}.nav-label{font-size:9px;color:#7f9b9e;letter-spacing:2px;margin:0 14px 15px}.nav-item{display:flex;align-items:center;width:100%;gap:12px;border:0;background:none;color:#a9bec0;padding:14px 13px;border-radius:8px;text-align:left;font-size:12px;margin-bottom:7px;white-space:nowrap}.nav-item>span:first-child{font-size:20px;line-height:18px;width:18px;text-align:center}.nav-item.active{background:#24484b;color:#d9f8ee}.nav-item:hover{background:#ffffff0c}.nav-item.active:hover{background:#24484b}.nav-count{background:#ffffff10;border-radius:5px;min-width:20px;padding:3px 5px;font-size:10px;margin-left:auto;text-align:center;color:#a9d5cb}.sidebar-bottom{margin-top:auto;padding:20px 10px 0}.engine{font-size:10px;color:#c4e4d6;display:flex;gap:7px;align-items:center}.engine i,.local-badge i,.live-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#66cda1}.sidebar-bottom>p{font-size:9px;color:#8da8aa;margin:12px 0}.sidebar-bottom strong{color:#acbdbc;border:1px solid #ffffff20;border-radius:4px;font-size:8px;padding:2px 4px;margin-left:9px}.sidebar-note{border-top:1px solid #ffffff13;margin-top:27px;padding-top:24px;font-size:11px;color:#91aaac;line-height:1.9}.demo-tag{display:inline-block;margin-top:15px;color:#7fa09f;font-size:8px;letter-spacing:1.5px}.shell{margin-left:236px}.topbar{height:76px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;background:white;border-bottom:1px solid var(--border)}.breadcrumb{font-size:10px;letter-spacing:.7px;color:#8a969c}.breadcrumb span{margin:0 13px;color:#ccd4d7}.breadcrumb b{font-weight:500;color:#4b5f67;font-size:11px;letter-spacing:0}.topbar-right{display:flex;align-items:center;gap:20px}.local-badge{display:flex;align-items:center;gap:7px;font-size:10px;color:#61716e}.profile{border-radius:50%;background:#edf2f1;width:32px;height:32px;display:grid;place-items:center;font-size:10px;font-weight:600}main{max-width:1600px;margin:auto;padding:28px 40px 0}.demo-notice{display:flex;align-items:center;gap:10px;background:#f0f5f5;border:1px solid #dfe8e8;border-radius:8px;padding:12px 16px;font-size:10px;color:#627479;line-height:1.65}.demo-notice p{margin:0}.demo-notice strong{font-weight:600}.notice-icon{border:1px solid #8caaa8;width:15px;height:15px;text-align:center;line-height:14px;border-radius:50%;font-size:10px;flex-shrink:0}.notice-tag{margin-left:auto;font-size:8px;letter-spacing:1px;color:#7d9296;white-space:nowrap}.page-heading{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:35px 0 27px}.eyebrow{font-size:9px;font-weight:700;letter-spacing:1.8px;color:var(--teal);margin:0 0 12px}h1{font-size:29px;line-height:1.4;letter-spacing:-1.2px;font-weight:700;margin:0}.heading-description{font-size:12px;color:var(--muted);margin:11px 0 0;line-height:1.7}.button{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:7px;padding:12px 17px;border:1px solid transparent;font-size:11px;font-weight:600;white-space:nowrap;text-decoration:none;line-height:1.5}.button.primary{background:var(--teal);color:#fff;box-shadow:0 4px 9px #087d7210}.button.primary:hover{background:#06685f}.button.primary>span{font-size:17px}.button.secondary{border-color:#dce4e6;background:#fff}.button.secondary:hover{background:#f3f7f6}.overview-meta{display:flex;justify-content:space-between;align-items:center;margin:0 0 18px;font-size:10px;color:#73858c}.overview-meta>span{display:flex;align-items:center;gap:7px}.overview-meta strong{font-size:10px;color:#485e66;font-weight:500}.live-dot{background:#81a299;width:5px;height:5px}.scenario-switch{display:flex;padding:3px;background:#e9edef;border-radius:7px;gap:3px}.scenario-switch button{font-size:10px;padding:6px 12px;border:0;background:none;border-radius:5px;color:#7b8c93}.scenario-switch button.selected{background:#fff;color:#254b4d;box-shadow:0 1px 4px #0000000b}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:22px}.metric{background:white;border:1px solid var(--border);border-radius:11px;padding:21px 21px 19px;position:relative}.metric-top{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#6b7c84}.metric-symbol{font-size:15px;display:grid;place-items:center;width:27px;height:27px;background:#f1f5f5;border-radius:7px;color:#8b9b9d}.metric-number{font-size:33px;font-weight:650;letter-spacing:-1px;margin:13px 0 11px;line-height:1}.metric-number span{font-size:11px;letter-spacing:0;font-weight:500;color:#91a0a6;margin-left:5px}.metric-hint{font-size:9px;color:#91a0a6;display:flex;gap:5px;align-items:center}.metric.accent .metric-number{color:#c46c37}.metric.accent .metric-symbol{background:#fff3ea;color:#bf7d4b}.metric.green .metric-number{color:var(--teal)}.metric.green .metric-symbol{background:#eaf7f2;color:var(--teal)}.insight-banner{padding:24px;display:flex;gap:17px;align-items:center;border:1px solid #d9e9e4;border-radius:12px;background:linear-gradient(105deg,#eef7f2,#f4f8f4);margin-bottom:28px}.insight-icon{width:42px;height:42px;display:grid;place-items:center;background:#dcefe4;border-radius:12px;color:#168063;font-size:25px;flex-shrink:0}.insight-banner .eyebrow{margin:0 0 7px;font-size:8px;color:#6b9a86}.insight-banner h2{font-size:14px;letter-spacing:-.3px;margin:0 0 7px;font-weight:650;line-height:1.65}.insight-banner p:last-child{font-size:10px;margin:0;color:#7b9187;line-height:1.7}.text-button{border:0;background:transparent;color:#44826f;font-size:10px;font-weight:600;padding:10px;white-space:nowrap;margin-left:auto}.text-button span{margin-left:10px}.content-grid{display:grid;grid-template-columns:minmax(0,1fr) 256px;gap:22px;align-items:start}.issue-panel{background:#fff;border:1px solid var(--border);border-radius:var(--radius);min-width:0;overflow:hidden}.section-heading{display:flex;justify-content:space-between;align-items:center;gap:10px}.issue-panel>.section-heading{padding:24px 24px 18px}h2{font-size:14px;letter-spacing:-.4px;margin:0;font-weight:650}.section-heading h2 span{font-size:12px;font-weight:500;color:#619484;margin-left:6px}.section-heading p{font-size:10px;line-height:1.6;color:#8a999f;margin:8px 0 0}.panel-chip{font-size:8px;padding:6px 8px;border:1px solid #e4eaea;border-radius:5px;color:#87979b;white-space:nowrap}.filters{display:flex;gap:8px;padding:0 24px}.search-box{display:flex;align-items:center;gap:8px;flex:1;min-width:80px;padding:0 11px;border:1px solid #e2e9e9;border-radius:6px;background:#fbfcfc}.search-box>span{color:#8b9da2;font-size:23px;line-height:1}.search-box input{width:100%;min-width:0;background:none;border:0;padding:10px 0;color:#405b62;font-size:10px;outline-offset:2px}.search-box input::placeholder{color:#97a5aa}select{border:1px solid #e2e9e9;border-radius:6px;padding:9px 7px;background:#fff;color:#637982;font-size:10px;min-width:88px}.results-meta{display:flex;justify-content:space-between;align-items:center;padding:17px 24px 13px;color:#93a0a6;font-size:9px}.results-meta label{display:flex;align-items:center;gap:4px}.results-meta input{accent-color:var(--teal);margin:0 3px 0 0;width:11px;height:11px}.issue-card{border-top:1px solid #edf0f1;padding:20px 24px;display:flex;gap:12px;align-items:flex-start}.issue-card:hover{background:#fcfefe}.issue-kind{height:35px;width:33px;flex-shrink:0;display:grid;place-items:center;border:1px solid #e7ecec;background:#f6f9f8;border-radius:8px;color:#7f9c93;font-size:17px;margin-top:2px}.issue-main{min-width:0;flex:1}.issue-card-meta{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-bottom:9px;font-size:9px;color:#8a9ba2}.status-pill{font-size:8px;font-weight:600;display:inline-flex;align-items:center;padding:4px 6px;border-radius:4px;line-height:1.1;white-space:nowrap}.status-new,.ready{background:#e8f5ee;color:#2d8868}.status-updated{background:#fff3e2;color:#b88028}.status-unchanged,.neutral{background:#f0f3f5;color:#788a94}.status-closed{background:#edf0fa;color:#737bac}.status-removed{background:#f1f1f1;color:#969696}.issue-title{border:0;background:none;text-align:left;font-size:12px;font-weight:600;padding:0;line-height:1.65;letter-spacing:-.2px}.issue-title:hover{color:var(--teal);text-decoration:underline;text-underline-offset:3px}.issue-summary{font-size:10px;line-height:1.8;color:#819198;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:7px 0 10px}.issue-footer{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.area-tag{font-size:8px;border:1px solid #e6eded;padding:3px 5px;color:#879b9f;border-radius:4px}.relevance-tag{margin-left:3px;font-size:8px;color:#9aa7aa}.issue-side{min-width:29px;display:flex;align-items:center;gap:12px;flex-direction:column}.importance{font-size:9px;min-width:23px;padding:5px 7px;border-radius:5px;text-align:center}.importance.high{background:#fbefe9;color:#bb6b47}.importance.medium{background:#faf4e7;color:#ab8c3f}.importance.low{background:#f0f3f5;color:#85959d}.bookmark{color:#b6c4c7;background:transparent;border:0;font-size:19px;padding:2px;line-height:1}.bookmark[aria-pressed=true]{color:#c09c4f}.right-column{display:flex;flex-direction:column;gap:20px}.side-card{border:1px solid var(--border);border-radius:var(--radius);background:#fff;padding:23px}.side-card h2{font-size:12px}.muted{color:#93a1a5}.tiny{font-size:8px}.area-chart{display:grid;gap:17px;margin:24px 0 18px}.area-row{font-size:9px}.area-label{display:flex;justify-content:space-between;margin-bottom:7px;color:#73878b}.area-label strong{font-size:9px;color:#527a6e;font-weight:500}.bar-track{height:5px;border-radius:4px;background:#eff4f2;overflow:hidden}.bar-fill{height:100%;background:#78af98;border-radius:4px;min-width:2px}.chart-note{border-top:1px solid #edf0ef;padding-top:14px;font-size:8px;color:#9aa7a9;line-height:1.8;margin-bottom:0}.workflow-card{background:#f0f4f3}.workflow-card .eyebrow{color:#89a196;font-size:8px;margin-bottom:10px}.workflow-card h2{font-size:16px;color:#49675d}.workflow-card ol{list-style:none;padding:0;margin:24px 0 19px;display:grid;gap:23px}.workflow-card li{display:flex;gap:14px;font-size:10px;font-weight:600;align-items:center;position:relative}.workflow-card li>span{width:24px;height:24px;font-size:9px;font-weight:500;background:#e4ece8;border-radius:50%;display:grid;place-items:center;color:#89a296;flex-shrink:0}.workflow-card li:not(:last-child):after{content:"";position:absolute;top:29px;left:11px;height:15px;border-left:1px solid #dae4df}.workflow-card small{display:block;font-size:8px;color:#8f9f98;font-weight:400;margin-top:6px}.privacy-note{border-top:1px solid #dfe6e2;padding-top:15px;font-size:9px;color:#849b8e}.privacy-note span{font-size:12px;margin-right:5px}.footer{display:flex;justify-content:space-between;margin-top:40px;padding:22px 0;border-top:1px solid #e7eced;font-size:8px;color:#a1adb0;gap:10px;letter-spacing:.5px}.footer b{font-weight:400;margin:0 5px}.empty-state{padding:60px 24px;text-align:center;color:#7d9199}.empty-state>span{display:block;font-size:34px;margin-bottom:18px;color:#adbfba}.empty-state h3{font-size:14px;font-weight:600;color:#566f73}.empty-state p{font-size:11px;line-height:1.8;margin:8px auto;max-width:400px}.briefing-content{max-width:960px}.briefing-summary{background:var(--sidebar);color:#eef9f6;padding:30px;border-radius:14px;margin-bottom:22px}.briefing-summary .eyebrow{color:#8bcbb0}.briefing-summary h2{font-size:20px;margin:12px 0}.briefing-summary p{font-size:12px;color:#abc9bf;line-height:1.8}.briefing-item{background:white;border:1px solid var(--border);border-radius:12px;padding:26px;margin-bottom:15px}.briefing-item h2{font-size:15px;margin:14px 0;line-height:1.7}.briefing-item p{font-size:12px;line-height:1.9;color:#6a8189}.briefing-item dl{display:grid;grid-template-columns:74px 1fr;gap:10px;font-size:11px;line-height:1.9;margin-bottom:0}.briefing-item dt{color:#9ba9ad}.briefing-item dd{margin:0;color:#506d74}.saved-list{background:white;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}.saved-list .issue-card:first-child{border-top:0}.system-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.system-grid .side-card{padding:28px}.system-grid h2{font-size:15px;margin-bottom:25px}.system-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:17px 0;border-top:1px solid #edf0ef;font-size:11px;color:#59727a}.system-description{font-size:12px;line-height:1.9;color:#85969c;margin:20px 0}.toast{position:fixed;bottom:26px;left:calc(50% + 118px);transform:translateX(-50%) translateY(20px);padding:13px 22px;background:#173e3b;color:#fff;font-size:12px;box-shadow:0 8px 30px #183a3a20;border-radius:9px;opacity:0;pointer-events:none;z-index:110;transition:opacity .2s,transform .2s;max-width:calc(100vw - 40px);text-align:center}.toast.visible{opacity:1;transform:translateX(-50%) translateY(0)}dialog{width:min(640px,calc(100% - 32px));border:1px solid #dde8e3;border-radius:16px;padding:28px;color:var(--ink);max-height:85dvh;box-shadow:0 20px 100px #173a3940}dialog::backdrop{background:#102c3280;backdrop-filter:blur(3px)}.dialog-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}.dialog-top .eyebrow{margin:0}.icon-button{border:0;background:#f1f5f4;border-radius:50%;width:30px;height:30px;font-size:22px;color:#81918d}.detail-title{font-size:22px;line-height:1.6;letter-spacing:-.5px;margin:14px 0 23px}.detail-section{border-top:1px solid #e9eeec;padding:19px 0}.detail-section h3{font-size:11px;color:#81928a;margin:0 0 11px;font-weight:500}.detail-section p{font-size:13px;line-height:1.9;margin:0;color:#3e625b}.detail-section pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:11px;line-height:1.8;background:#f4f7f5;border-radius:8px;padding:15px;color:#5f7d6f}.detail-score{display:grid;grid-template-columns:1fr 1fr;gap:12px}.score-tile{background:#f4f8f5;padding:16px;border-radius:8px;font-size:10px;color:#84958c}.score-tile strong{display:block;font-size:24px;color:#286e57;margin-top:8px}.detail-disclaimer{font-size:10px;color:#94a29b;line-height:1.7;margin-top:20px}.view{animation:enter .25s ease-out}@keyframes enter{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:1550px){main{padding-left:55px;padding-right:55px}.content-grid{grid-template-columns:minmax(0,1fr) 290px}.issue-title{font-size:13px}.issue-summary{font-size:11px}}@media(max-width:1190px){.sidebar{width:208px;padding-left:17px;padding-right:17px}.shell{margin-left:208px}main{padding:24px 27px 0}.topbar{padding:0 27px}.content-grid{grid-template-columns:minmax(0,1fr) 225px;gap:17px}.filters{flex-wrap:wrap}.search-box{flex-basis:100%}.filters select{flex:1}.metric{padding:18px 15px}.panel-chip{display:none}.toast{left:calc(50% + 104px)}.brand{font-size:11px}.insight-banner{padding:20px}.insight-banner h2{font-size:12px}.text-button{font-size:9px;padding-right:0}.side-card{padding:20px}.issue-card{padding:19px 20px}}
+@media(max-width:960px){.content-grid{grid-template-columns:1fr}.right-column{display:grid;grid-template-columns:1fr 1fr}.metrics{gap:10px}.metric-top{font-size:10px}.metric-symbol{display:none}.metric-number{font-size:29px}.metric-hint{font-size:8px}.system-grid{grid-template-columns:1fr}.notice-tag{display:none}.page-heading{gap:15px}h1{font-size:25px}.heading-description{font-size:11px}.button{padding:11px 12px;font-size:10px}.search-box{flex-basis:0}.filters select{flex:0}.insight-banner{align-items:flex-start;position:relative;padding-bottom:48px}.text-button{position:absolute;bottom:12px;right:20px}.side-card{padding:24px}.brand{letter-spacing:0}}
+@media(max-width:680px){.sidebar{position:static;width:100%;padding:16px 18px 0;background:var(--sidebar)}.brand{font-size:11px;gap:9px}.brand-icon{width:29px;height:32px;font-size:22px}.brand-sub{font-size:7px;margin-top:3px}.brand-icon span{font-size:12px}.workspace,.nav-label,.sidebar-bottom{display:none}.sidebar nav{display:flex;justify-content:space-between;margin-top:19px;gap:3px}.nav-item{padding:12px 7px;font-size:10px;gap:5px;border-radius:7px 7px 0 0;margin:0;width:auto;flex:1;justify-content:center}.nav-item>span:first-child{font-size:16px;width:14px}.nav-count{display:none}.shell{margin:0}.topbar{height:49px;padding:0 20px}.breadcrumb{font-size:8px}.breadcrumb span{margin:0 8px}.breadcrumb b{font-size:9px}.profile{display:none}.topbar-right{gap:0}.local-badge{font-size:8px}.local-badge i{width:5px;height:5px}main{padding:19px 18px 0}.demo-notice{padding:10px 11px;font-size:9px;gap:8px}.demo-notice strong{display:block}.page-heading{margin:26px 0 21px;flex-wrap:wrap;gap:18px}.eyebrow{font-size:8px;margin-bottom:9px}h1{font-size:26px}.heading-description{font-size:11px}.page-heading>.button{width:100%;padding:12px;font-size:11px}.overview-meta{font-size:9px;margin-bottom:14px}.overview-meta strong{font-size:9px}.scenario-switch button{font-size:9px;padding:6px 10px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:17px}.metric{padding:17px}.metric-top{font-size:10px}.metric-number{font-size:30px;margin:12px 0 10px}.metric-hint{font-size:9px}.metric-symbol{display:grid;width:24px;height:24px;font-size:14px}.insight-banner{padding:20px 16px 46px;gap:12px;margin-bottom:22px}.insight-icon{width:32px;height:34px;font-size:22px;border-radius:9px}.insight-banner h2{font-size:12px}.insight-banner p:last-child{font-size:9px}.text-button{font-size:10px;right:15px;bottom:9px}.issue-panel>.section-heading{padding:21px 18px 17px}.section-heading p{font-size:9px}.section-heading h2{font-size:13px}.filters{padding:0 17px;gap:7px}.search-box{flex-basis:100%}.search-box input{padding:12px 0;font-size:11px}.filters select{flex:1;font-size:10px;padding:10px}.results-meta{padding:15px 18px 14px;font-size:9px}.issue-card{padding:20px 17px;gap:10px}.issue-kind{display:none}.issue-title{font-size:12px}.issue-summary{font-size:10px}.issue-card-meta{font-size:9px;gap:6px}.issue-footer{gap:4px}.area-tag{font-size:8px}.relevance-tag{display:none}.right-column{grid-template-columns:1fr;gap:16px}.side-card{padding:23px}.workflow-card{display:none}.area-chart{grid-template-columns:1fr 1fr;gap:20px}.footer{font-size:7px;letter-spacing:0;margin-top:25px}.toast{left:50%;font-size:11px}.briefing-summary{padding:24px}.briefing-summary h2{font-size:18px}.briefing-summary p{font-size:11px}.briefing-item{padding:22px}.briefing-item h2{font-size:14px}.briefing-item p{font-size:11px}.briefing-item dl{grid-template-columns:62px 1fr;font-size:10px}.system-grid .side-card{padding:24px}.system-row{font-size:10px}.system-description{font-size:11px}dialog{padding:22px}.detail-title{font-size:19px}.detail-section p{font-size:12px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+<aside class="sidebar">
+  <a class="brand" href="#monitor" aria-label="Compliance AX 홈"><span class="brand-icon">C<span>↗</span></span><span>COMPLIANCE<span class="brand-sub">AX INTELLIGENCE</span></span></a>
+  <div class="workspace"><span class="workspace-avatar">R</span><div>Retail Compliance<small>공개 체험 워크스페이스</small></div><span class="workspace-dot"></span></div>
+  <p class="nav-label">WORKSPACE</p>
+  <nav aria-label="주 메뉴">
+    <button class="nav-item active" data-view="monitor"><span aria-hidden="true">▦</span>이슈 모니터링<span class="nav-count" id="nav-count">4</span></button>
+    <button class="nav-item" data-view="briefing"><span aria-hidden="true">▤</span>데일리 브리핑</button>
+    <button class="nav-item" data-view="saved"><span aria-hidden="true">☆</span>검토 보관함<span class="nav-count" id="saved-count">0</span></button>
+    <button class="nav-item" data-view="system"><span aria-hidden="true">⚙</span>시스템 정보</button>
+  </nav>
+  <div class="sidebar-bottom"><div class="engine"><i></i> Rule Engine Active</div><p>External LLM API <strong>OFF</strong></p><div class="sidebar-note">공개 자료로 시작하는<br>준법지원의 새로운 워크플로.</div><span class="demo-tag">DEMO / PoC</span></div>
+</aside>
+<div class="shell">
+  <header class="topbar"><div class="breadcrumb">WORKSPACE <span>/</span> <b id="page-label">이슈 모니터링</b></div><div class="topbar-right"><span class="local-badge"><i></i>브라우저 데모</span><span class="profile">준법</span></div></header>
+  <main id="main" tabindex="-1">
+    <div class="demo-notice"><span class="notice-icon">i</span><p><strong>가상 데이터로 체험하는 공개 데모입니다.</strong> 실제 법령·제재 정보가 아니며, 실시간 수집이나 AI 서버 연결은 수행하지 않습니다.</p><span class="notice-tag">SAMPLE DATA</span></div>
+    <section id="view-monitor" class="view">
+      <div class="page-heading"><div><p class="eyebrow">REGULATORY INTELLIGENCE</p><h1>오늘의 이슈, 다음의 대응.</h1><p class="heading-description">규제의 변화를 읽고, 우리 사업의 검토 과제로 연결합니다.</p></div><button class="button primary" id="run-demo"><span aria-hidden="true">↻</span> 변경 시나리오 체험</button></div>
+      <div class="overview-meta"><span><i class="live-dot"></i>샘플 기준일 <strong id="sample-date"></strong></span><div class="scenario-switch" role="group" aria-label="샘플 시나리오"><button data-scenario="initial" class="selected" aria-pressed="true">첫 수집</button><button data-scenario="changes" aria-pressed="false">변경 발생</button></div></div>
+      <div class="metrics" id="metrics"></div>
+      <div class="insight-banner"><div class="insight-icon" aria-hidden="true">✧</div><div><p class="eyebrow">TODAY'S FOCUS</p><h2 id="focus-title"></h2><p id="focus-description"></p></div><button class="text-button" id="open-briefing">브리핑 보기 <span aria-hidden="true">↗</span></button></div>
+      <div class="content-grid"><section class="issue-panel"><div class="section-heading"><div><h2>이슈 모니터링 <span id="result-count"></span></h2><p>제목을 눌러 분석 근거와 검토 포인트를 확인하세요.</p></div><span class="panel-chip">공개 자료 시뮬레이션</span></div>
+        <div class="filters"><label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="제목·본문·영향 영역 검색" aria-label="이슈 검색"></label><select id="importance-filter" aria-label="중요도 필터"><option value="all">모든 중요도</option><option>상</option><option>중</option><option>하</option></select><select id="status-filter" aria-label="변경 상태 필터"><option value="all">모든 상태</option><option value="NEW">신규</option><option value="UPDATED">변경</option><option value="UNCHANGED">동일</option><option value="CLOSED">처리 완료</option><option value="REMOVED">수집 범위 제외</option></select></div>
+        <div class="results-meta"><label><input id="relevant-only" type="checkbox"> 관련 이슈만</label><span>중요도 높은 순</span></div>
+        <div id="issue-list" class="issue-list"></div>
+      </section><aside class="right-column"><section class="side-card"><div class="section-heading"><h2>영향 영역</h2><span class="muted tiny">중복 집계</span></div><div id="area-chart" class="area-chart"></div><p class="chart-note">이슈 본문의 키워드를 기준으로 분류합니다.</p></section><section class="side-card workflow-card"><p class="eyebrow">HOW IT WORKS</p><h2>변화를, 대응으로.</h2><ol><li><span>01</span><div>공개 데이터<small>샘플 문서 불러오기</small></div></li><li><span>02</span><div>변경 탐지<small>이전 수집 결과와 비교</small></div></li><li><span>03</span><div>관련성 · 중요도<small>Rule Engine 점수와 근거</small></div></li><li><span>04</span><div>실무 브리핑<small>영향 영역과 검토 포인트</small></div></li></ol><div class="privacy-note"><span aria-hidden="true">◇</span> 외부 LLM 전송 없음</div></section></aside></div>
+    </section>
+    <section id="view-briefing" class="view" hidden><div class="page-heading"><div><p class="eyebrow">DAILY BRIEFING</p><h1>검토의 우선순위를 한눈에.</h1><p class="heading-description">현재 시나리오의 관련 이슈를 중요도순으로 정리합니다.</p></div><button class="button primary" id="download-briefing">↓ 브리핑 저장</button></div><div id="briefing-content" class="briefing-content"></div></section>
+    <section id="view-saved" class="view" hidden><div class="page-heading"><div><p class="eyebrow">REVIEW QUEUE</p><h1>다시 살펴볼 이슈.</h1><p class="heading-description">별표로 보관한 이슈입니다. 이 브라우저에만 저장됩니다.</p></div><button class="button secondary" id="clear-saved">보관함 비우기</button></div><div id="saved-list" class="saved-list"></div></section>
+    <section id="view-system" class="view" hidden><div class="page-heading"><div><p class="eyebrow">SYSTEM STATUS</p><h1>투명하게 확인하는 작동 범위.</h1><p class="heading-description">이 공유용 버전은 로그인 없이 열리는 샘플 분석 데모입니다.</p></div></div><div class="system-grid"><section class="side-card"><h2>Data Sources</h2><div class="system-row"><span>가상 샘플 데이터</span><b class="status-pill ready">사용 중</b></div><div class="system-row"><span>국가법령정보센터 API</span><b class="status-pill neutral">이 웹에서는 미연동</b></div><div class="system-row"><span>국회 입법 API</span><b class="status-pill neutral">이 웹에서는 미연동</b></div><div class="system-row"><span>공정거래위원회</span><b class="status-pill neutral">이 웹에서는 미연동</b></div><div class="system-row"><span>개인정보보호위원회</span><b class="status-pill neutral">이 웹에서는 미연동</b></div><div class="system-row"><span>직접 URL 수집</span><b class="status-pill neutral">로컬 앱에서 제공</b></div></section><section class="side-card"><h2>Analysis Engine</h2><div class="system-row"><span>Rule Engine 분석 결과</span><b class="status-pill ready">Active</b></div><div class="system-row"><span>Ollama</span><b class="status-pill neutral">공유 버전 미사용</b></div><div class="system-row"><span>External LLM API</span><b class="status-pill ready">Disabled</b></div><p class="system-description">Python Rule Engine으로 미리 분석한 가상 시나리오를 브라우저에서 탐색합니다. API 키와 사내 데이터는 포함하지 않습니다. 필터·보관함·브리핑 저장은 브라우저에서 동작합니다.</p><p class="system-description">실제 공공 API와 로컬 Ollama를 활용하는 Python / Streamlit 버전도 GitHub 저장소에 있습니다.</p><a class="button secondary" href="https://github.com/yn7844-maker/26-2koreaseven/tree/compliance-ax-demo/compliance-ax-demo" target="_blank" rel="noopener noreferrer">GitHub 소스 보기 ↗</a></section></div></section>
+    <footer class="footer"><span>COMPLIANCE AX <b>·</b> 공개 체험 데모</span><span>가상 데이터 · 법률 자문 아님</span></footer>
+  </main>
+</div>
+<dialog id="issue-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><span class="eyebrow">ISSUE DETAIL</span><button id="close-dialog" class="icon-button" aria-label="상세 닫기">×</button></div><div id="dialog-content"></div></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<noscript><p>이 데모를 보려면 브라우저의 JavaScript를 활성화하세요.</p></noscript>
+<script id="demo-data" type="application/json">{
+  "date": "2026-10-22",
+  "scenarios": [
+    {
+      "id": "initial",
+      "label": "첫 수집",
+      "items": [
+        {
+          "source_org": "샘플 기관",
+          "source_type": "가상 샘플",
+          "title": "[가상] 가맹점 계약 안내 개정",
+          "body": "가맹사업 법률 개정 및 시행에 따른 점주 안내 의무 검토가 필요합니다.",
+          "url": "",
+          "document_id": "demo-0",
+          "published_date": "2026-10-22",
+          "collected_at": "2026-10-22T00:00:00+00:00",
+          "process_status": "검토 중",
+          "last_seen_date": "20261022",
+          "identity": "fa412eb3e20a34871b5d78e9f4a9800c16b3db9939cba9114dd25b193c1280ff",
+          "body_hash": "476f1bebf944ac43c2654c989ac66634d207ba86160983a1ef8044a30edbb116",
+          "content_hash": "bbfa0c69ee6c55c95f45020950f1850cac89380af27410de70156163b617a6db",
+          "delta": "NEW",
+          "status_transition": "",
+          "diff": "",
+          "importance_score": 10,
+          "importance": "상",
+          "relevance_score": 4,
+          "relevant": true,
+          "rule_reasons": "법적 직접 영향, 개정/시행, 가맹사업",
+          "summary": "가맹사업 법률 개정 및 시행에 따른 점주 안내 의무 검토가 필요합니다.",
+          "impact_areas": "가맹/점포",
+          "review_points": "원문·시행일·적용대상 확인 후 담당부서와 검토: 가맹/점포",
+          "engine": "Rule Engine"
+        },
+        {
+          "source_org": "샘플 기관",
+          "source_type": "가상 샘플",
+          "title": "[가상] 유통업 표시광고 제재 사례",
+          "body": "편의점 상품 표시광고 위반에 과징금이 부과되었다는 가상 제재 사례입니다.",
+          "url": "",
+          "document_id": "demo-1",
+          "published_date": "2026-10-22",
+          "collected_at": "2026-10-22T00:00:00+00:00",
+          "process_status": "검토 중",
+          "last_seen_date": "20261022",
+          "identity": "26e7ab15a9edbab79665b3078e4aef88315df7bee967f32fc533d7d034856555",
+          "body_hash": "90a9f82f49d4f8bb1729b5fe63d182784e09c651870dce985d733899ecd130f0",
+          "content_hash": "c140f3d7035fba6ff44e967b4764547e614c92e875f657a5375abf05ea0773b6",
+          "delta": "NEW",
+          "status_transition": "",
+          "diff": "",
+          "importance_score": 10,
+          "importance": "상",
+          "relevance_score": 6,
+          "relevant": true,
+          "rule_reasons": "법적 직접 영향, 조사/제재, 편의점",
+          "summary": "편의점 상품 표시광고 위반에 과징금이 부과되었다는 가상 제재 사례입니다.",
+          "impact_areas": "가맹/점포, 상품/표시광고, 구매/유통",
+          "review_points": "원문·시행일·적용대상 확인 후 담당부서와 검토: 가맹/점포, 상품/표시광고, 구매/유통",
+          "engine": "Rule Engine"
+        },
+        {
+          "source_org": "샘플 기관",
+          "source_type": "가상 샘플",
+          "title": "[가상] 개인정보 처리 가이드",
+          "body": "개인정보 보호법 개정에 따라 소비자 정보 보관 의무를 검토하는 가상 자료입니다.",
+          "url": "",
+          "document_id": "demo-2",
+          "published_date": "2026-10-22",
+          "collected_at": "2026-10-22T00:00:00+00:00",
+          "process_status": "검토 중",
+          "last_seen_date": "20261022",
+          "identity": "a3682d49e86100fcc9dccdf33aa45cb7d2782d32e19ea1785222b1c01a2423a9",
+          "body_hash": "abe86ad45c9e7ba2fb059fec53c5dc53b9d1fd1d765ed4ba5d7e7d0800b663cd",
+          "content_hash": "7fb6a081f7f7eed132010d3a33a12110086f4973630ef88a46a4e6a80c3c6295",
+          "delta": "NEW",
+          "status_transition": "",
+          "diff": "",
+          "importance_score": 9,
+          "importance": "상",
+          "relevance_score": 2,
+          "relevant": true,
+          "rule_reasons": "법적 직접 영향, 개정/시행, 개인정보",
+          "summary": "개인정보 보호법 개정에 따라 소비자 정보 보관 의무를 검토하는 가상 자료입니다.",
+          "impact_areas": "개인정보/IT, 온라인/소비자",
+          "review_points": "원문·시행일·적용대상 확인 후 담당부서와 검토: 개인정보/IT, 온라인/소비자",
+          "engine": "Rule Engine"
+        },
+        {
+          "source_org": "샘플 뉴스",
+          "source_type": "가상 샘플",
+          "title": "[가상] 업계 뉴스",
+          "body": "유통 업계의 일반 뉴스로 실제 사건이 아닙니다.",
+          "url": "",
+          "document_id": "demo-3",
+          "published_date": "2026-10-22",
+          "collected_at": "2026-10-22T00:00:00+00:00",
+          "process_status": "검토 중",
+          "last_seen_date": "20261022",
+          "identity": "c6fe409868c1b1ea1c2078955d73bb9186bf753060b419e565bba0aea99036b3",
+          "body_hash": "7a5b8822e77b2984221c6c620d707daa6a696096676e4f0dbfd55e61f5d27d80",
+          "content_hash": "b3140cddb85faedf6a0d4e30124c2274e4850c5340214b345b70de227151c535",
+          "delta": "NEW",
+          "status_transition": "",
+          "diff": "",
+          "importance_score": 1,
+          "importance": "하",
+          "relevance_score": 2,
+          "relevant": true,
+          "rule_reasons": "언론",
+          "summary": "유통 업계의 일반 뉴스로 실제 사건이 아닙니다.",
+          "impact_areas": "구매/유통",
+          "review_points": "원문·시행일·적용대상 확인 후 담당부서와 검토: 구매/유통",
+          "engine": "Rule Engine"
+        }
+      ]
+    },
+    {
+      "id": "changes",
+      "label": "변경 발생",
+      "items": [
+        {
+          "source_org": "샘플 기관",
+          "source_type": "가상 샘플",
+          "title": "[가상] 가맹점 계약 안내 개정",
+          "body": "가맹사업 법률 개정 및 시행에 따른 점주 안내 의무 검토가 필요합니다. [가상 변경] 계약 갱신 안내와 점주 사전 고지 절차의 점검 항목이 추가되었습니다.",
+          "url": "",
+          "document_id": "demo-0",
+          "published_date": "2026-10-22",
+          "collected_at": "2026-10-22T00:00:00+00:00",
+          "process_status": "검토 중",
+          "last_seen_date": "20261022",
+          "identity": "fa412eb3e20a34871b5d78e9f4a9800c16b3db9939cba9114dd25b193c1280ff",
+          "body_hash": "cfa84eb797adcf2926552573f302bef05d1987b73beca92c93a8d76e273c9b5d",
+          "content_hash": "05485bf22f50e31809e11255dfcea27615a0bd823d1a9186a96adc76554f25f7",
+          "delta": "UPDATED",
+          "status_transition": "검토 중 → 검토 중",
+          "diff": "--- \n+++ \n@@ -1 +1 @@\n-가맹사업 법률 개정 및 시행에 따른 점주 안내 의무 검토가 필요합니다.\n+가맹사업 법률 개정 및 시행에 따른 점주 안내 의무 검토가 필요합니다. [가상 변경] 계약 갱신 안내와 점주 사전 고지 절차의 점검 항목이 추가되었습니다.",
+          "importance_score": 10,
+          "importance": "상",
+          "relevance_score": 4,
+          "relevant": true,
+          "rule_reasons": "법적 직접 영향, 개정/시행, 가맹사업",
+          "summary": "가맹사업 법률 개정 및 시행에 따른 점주 안내 의무 검토가 필요합니다. [가상 변경] 계약 갱신 안내와 점주 사전 고지 절차의 점검 항목이 추가되었습니다.",
+          "impact_areas": "가맹/점포",
+          "review_points": "원문·시행일·적용대상 확인 후 담당부서와 검토: 가맹/점포",
+          "engine": "Rule Engine"
+        },
+        {
+          "source_org": "샘플 기관",
+          "source_type": "가상 샘플",
+          "title": "[가상] 유통업 표시광고 제재 사례",
+          "body": "편의점 상품 표시광고 위반에 과징금이 부과되었다는 가상 제재 사례입니다. [가상 변경] 처리 단계가 의결로 변경되었습니다.",
+          "url": "",
+          "document_id": "demo-1",
+          "published_date": "2026-10-22",
+          "collected_at": "2026-10-22T00:00:00+00:00",
+          "process_status": "의결",
+          "last_seen_date": "20261022",
+          "identity": "26e7ab15a9edbab79665b3078e4aef88315df7bee967f32fc533d7d034856555",
+          "body_hash": "23aa18905b863993bbd3732a59968c06c9756023d124014e5badb895e295b883",
+          "content_hash": "a0831c0b690b22cbd56638bad0e2d2f54af95155dee9384db2edd1ac395dd5af",
+          "delta": "CLOSED",
+          "status_transition": "검토 중 → 의결",
+          "diff": "--- \n+++ \n@@ -1 +1 @@\n-편의점 상품 표시광고 위반에 과징금이 부과되었다는 가상 제재 사례입니다.\n+편의점 상품 표시광고 위반에 과징금이 부과되었다는 가상 제재 사례입니다. [가상 변경] 처리 단계가 의결로 변경되었습니다.",
+          "importance_score": 10,
+          "importance": "상",
+          "relevance_score": 6,
+          "relevant": true,
+          "rule_reasons": "법적 직접 영향, 조사/제재, 편의점",
+          "summary": "편의점 상품 표시광고 위반에 과징금이 부과되었다는 가상 제재 사례입니다. [가상 변경] 처리 단계가 의결로 변경되었습니다.",
+          "impact_areas": "가맹/점포, 상품/표시광고, 구매/유통",
+          "review_points": "원문·시행일·적용대상 확인 후 담당부서와 검토: 가맹/점포, 상품/표시광고, 구매/유통",
+          "engine": "Rule Engine"
+        },
+        {
+          "source_org": "샘플 기관",
+          "source_type": "가상 샘플",
+          "title": "[가상] 개인정보 처리 가이드",
+          "body": "개인정보 보호법 개정에 따라 소비자 정보 보관 의무를 검토하는 가상 자료입니다.",
+          "url": "",
+          "document_id": "demo-2",
+          "published_date": "2026-10-22",
+          "collected_at": "2026-10-22T00:00:00+00:00",
+          "process_status": "검토 중",
+          "last_seen_date": "20261022",
+          "identity": "a3682d49e86100fcc9dccdf33aa45cb7d2782d32e19ea1785222b1c01a2423a9",
+          "body_hash": "abe86ad45c9e7ba2fb059fec53c5dc53b9d1fd1d765ed4ba5d7e7d0800b663cd",
+          "content_hash": "7fb6a081f7f7eed132010d3a33a12110086f4973630ef88a46a4e6a80c3c6295",
+          "delta": "UNCHANGED",
+          "status_transition": "",
+          "diff": "",
+          "importance_score": 9,
+          "importance": "상",
+          "relevance_score": 2,
+          "relevant": true,
+          "rule_reasons": "법적 직접 영향, 개정/시행, 개인정보",
+          "summary": "개인정보 보호법 개정에 따라 소비자 정보 보관 의무를 검토하는 가상 자료입니다.",
+          "impact_areas": "개인정보/IT, 온라인/소비자",
+          "review_points": "원문·시행일·적용대상 확인 후 담당부서와 검토: 개인정보/IT, 온라인/소비자",
+          "engine": "Rule Engine"
+        },
+        {
+          "source_org": "샘플 기관",
+          "source_type": "가상 샘플",
+          "title": "[가상] 온라인 주문 개인정보 점검",
+          "body": "편의점 온라인 주문의 개인정보 처리 및 전자상거래 소비자 안내 의무를 확인하는 가상 자료입니다.",
+          "document_id": "demo-4",
+          "url": "",
+          "published_date": "2026-10-22",
+          "collected_at": "2026-10-22T00:00:00+00:00",
+          "process_status": "접수",
+          "last_seen_date": "20261022",
+          "identity": "4c4dbc47a8762cf7d8f2f63c6dbe0c0da11422483e09d9ac69966f590719ba98",
+          "body_hash": "9ab8f9fd4c9786319400bd75e0341ce8416d73b3ab61f402f83f92d7e0c4af04",
+          "content_hash": "27464dafa621c5c9ee6602ae58507d40859563d394219d556c76b2efbf83fc75",
+          "delta": "NEW",
+          "status_transition": "",
+          "diff": "",
+          "importance_score": 8,
+          "importance": "상",
+          "relevance_score": 6,
+          "relevant": true,
+          "rule_reasons": "법적 직접 영향, 편의점, 개인정보",
+          "summary": "편의점 온라인 주문의 개인정보 처리 및 전자상거래 소비자 안내 의무를 확인하는 가상 자료입니다.",
+          "impact_areas": "가맹/점포, 개인정보/IT, 구매/유통, 온라인/소비자",
+          "review_points": "원문·시행일·적용대상 확인 후 담당부서와 검토: 가맹/점포, 개인정보/IT, 구매/유통, 온라인/소비자",
+          "engine": "Rule Engine"
+        },
+        {
+          "source_org": "샘플 뉴스",
+          "source_type": "가상 샘플",
+          "title": "[가상] 업계 뉴스",
+          "body": "유통 업계의 일반 뉴스로 실제 사건이 아닙니다.",
+          "url": "",
+          "document_id": "demo-3",
+          "published_date": "2026-10-22",
+          "collected_at": "2026-10-22T00:00:00+00:00",
+          "process_status": "검토 중",
+          "delta": "REMOVED",
+          "importance_score": 1,
+          "importance": "하",
+          "relevance_score": 2,
+          "relevant": true,
+          "rule_reasons": "언론",
+          "summary": "유통 업계의 일반 뉴스로 실제 사건이 아닙니다.",
+          "impact_areas": "구매/유통",
+          "review_points": "원문·시행일·적용대상 확인 후 담당부서와 검토: 구매/유통",
+          "engine": "Rule Engine"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<script>(() => {
+  'use strict';
+  const data = JSON.parse(document.getElementById('demo-data').textContent);
+  const $ = selector => document.querySelector(selector);
+  const $$ = selector => [...document.querySelectorAll(selector)];
+  const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const labels = {NEW:'신규', UPDATED:'변경', UNCHANGED:'동일', CLOSED:'처리 완료', REMOVED:'수집 범위 제외', EFFECTIVE:'시행'};
+  const viewLabels = {monitor:'이슈 모니터링', briefing:'데일리 브리핑', saved:'검토 보관함', system:'시스템 정보'};
+  const storageKey = 'compliance-ax-demo-saved-v1';
+  let saved;
+  try { const parsed = JSON.parse(localStorage.getItem(storageKey) || '[]'); saved = new Set(Array.isArray(parsed) ? parsed.filter(x => typeof x === 'string') : []); }
+  catch { saved = new Set(); }
+  let scenario = 'initial';
+  let activeView = 'monitor';
+  let toastTimeout;
+  const current = () => data.scenarios.find(s => s.id === scenario).items;
+  const sorted = items => [...items].sort((a,b) => b.importance_score - a.importance_score);
+  const relevant = () => sorted(current().filter(i => i.relevant && i.delta !== 'REMOVED'));
+  function toast(message) { $('#toast').textContent=message; $('#toast').classList.add('visible'); clearTimeout(toastTimeout); toastTimeout=setTimeout(() => $('#toast').classList.remove('visible'),3000); }
+  function badge(item) { return `<span class="status-pill status-${esc(item.delta.toLowerCase())}">${esc(labels[item.delta] || item.delta)}</span>`; }
+  function importance(item) { return `<span class="importance ${item.importance==='상'?'high':item.importance==='중'?'medium':'low'}" aria-label="중요도 ${esc(item.importance)}">${esc(item.importance)}</span>`; }
+  function issueCard(item) {
+    const id=esc(item.identity);
+    return `<article class="issue-card" data-issue="${id}"><div class="issue-kind" aria-hidden="true">▤</div><div class="issue-main"><div class="issue-card-meta">${badge(item)}<span>${esc(item.source_org)}</span><span>·</span><span>${esc(item.published_date)}</span></div><button class="issue-title" data-open="${id}">${esc(item.title)}</button><p class="issue-summary">${esc(item.summary)}</p><div class="issue-footer">${item.impact_areas.split(', ').map(area=>`<span class="area-tag">${esc(area)}</span>`).join('')}<span class="relevance-tag">관련성 ${item.relevance_score}점</span></div></div><div class="issue-side">${importance(item)}<button class="bookmark" data-save="${id}" aria-pressed="${saved.has(item.identity)}" aria-label="${esc(item.title)} ${saved.has(item.identity)?'보관 해제':'보관'}">${saved.has(item.identity)?'★':'☆'}</button></div></article>`;
+  }
+  function empty(title, text, symbol='⌕') { return `<div class="empty-state"><span aria-hidden="true">${symbol}</span><h3>${esc(title)}</h3><p>${esc(text)}</p></div>`; }
+  function renderMetrics() {
+    const items=current().filter(i=>i.delta!=='REMOVED');
+    const changes=current().filter(i=>!['UNCHANGED','REMOVED'].includes(i.delta));
+    const high=items.filter(i=>i.importance==='상');
+    const related=items.filter(i=>i.relevant);
+    const metrics=[['수집 이슈',items.length,'샘플 문서 기준','▦',''],['우선 검토',high.length,'중요도 7점 이상','↗','accent'],['신규 · 변경',changes.length,scenario==='initial'?'첫 수집 결과':'상태 전환 포함','↻','green'],['관련 이슈',related.length,'업종 키워드 일치','⊙','']];
+    $('#metrics').innerHTML=metrics.map(([label,count,hint,icon,tone])=>`<div class="metric ${tone}"><div class="metric-top">${label}<span class="metric-symbol" aria-hidden="true">${icon}</span></div><div class="metric-number">${count}<span>건</span></div><div class="metric-hint">${hint}</div></div>`).join('');
+    $('#nav-count').textContent=items.length;
+    $('#focus-title').textContent=scenario==='initial'?'가맹 · 표시광고 · 개인정보, 세 영역을 우선 확인하세요.':'가맹 안내 변경과 새 개인정보 이슈를 확인하세요.';
+    $('#focus-description').textContent=scenario==='initial'?'관련 이슈의 중요도와 영향 영역을 묶어 검토 순서를 제안합니다.':'가상 시나리오에서 본문 변경, 처리 완료, 신규 이슈와 수집 범위 제외를 비교합니다.';
+    const areaCounts=new Map();
+    relevant().forEach(i=>i.impact_areas.split(', ').forEach(area=>areaCounts.set(area,(areaCounts.get(area)||0)+1)));
+    const maximum=Math.max(1,...areaCounts.values());
+    $('#area-chart').innerHTML=[...areaCounts].sort((a,b)=>b[1]-a[1]).map(([name,count])=>`<div class="area-row"><div class="area-label"><span>${esc(name)}</span><strong>${count}건</strong></div><div class="bar-track"><div class="bar-fill" style="width:${count/maximum*100}%"></div></div></div>`).join('');
+  }
+  function renderIssues() {
+    const query=$('#search').value.trim().toLocaleLowerCase('ko');
+    const level=$('#importance-filter').value;
+    const status=$('#status-filter').value;
+    const only=$('#relevant-only').checked;
+    const rows=sorted(current()).filter(i=>(level==='all'||i.importance===level)&&(status==='all'||i.delta===status)&&(!only||i.relevant)&&(!query||[i.title,i.body,i.impact_areas].join(' ').toLocaleLowerCase('ko').includes(query)));
+    $('#result-count').textContent=rows.length+'건';
+    $('#issue-list').innerHTML=rows.length?rows.map(issueCard).join(''):empty('조건에 맞는 이슈가 없습니다.','검색어나 필터를 변경해 보세요.');
+  }
+  function buildBriefingMarkdown() {
+    const rows=relevant();
+    return [`# ${data.date} 준법 데일리 브리핑`, '> 가상 데이터 공개 데모 · 실제 규제 정보 또는 법률 자문이 아닙니다.', `시나리오: ${scenario==='initial'?'첫 수집':'변경 발생'} / 관련 이슈 ${rows.length}건`,...rows.map(i=>`## [${i.importance}] ${i.title} (${labels[i.delta]})\n\n${i.summary}\n\n- 영향 영역: ${i.impact_areas}\n- 검토 포인트: ${i.review_points}\n- 점수: 중요도 ${i.importance_score} / 관련성 ${i.relevance_score}\n- 근거: ${i.rule_reasons}\n- 출처: ${i.source_org} (가상)`)].join('\n\n');
+  }
+  function renderBriefing() {
+    const rows=relevant();
+    $('#briefing-content').innerHTML=`<section class="briefing-summary"><p class="eyebrow">${esc(data.date)} / SAMPLE BRIEFING</p><h2>${rows.length}개의 관련 이슈, 우선 검토부터 시작하세요.</h2><p>${esc(rows.slice(0,3).map(i=>i.title.replace('[가상] ','')).join(' · '))}</p><p>중요도는 규칙 기반 점수입니다. 요약은 본문 발췌이며 원문과 적용대상 확인이 필요합니다.</p></section>`+rows.map((i,index)=>`<article class="briefing-item"><div class="issue-card-meta"><span>${String(index+1).padStart(2,'0')}</span>${badge(i)}${importance(i)}</div><h2>${esc(i.title)}</h2><p>${esc(i.summary)}</p><dl><dt>영향 영역</dt><dd>${esc(i.impact_areas)}</dd><dt>검토 포인트</dt><dd>${esc(i.review_points)}</dd><dt>분석 근거</dt><dd>${esc(i.rule_reasons)} · ${i.importance_score}점</dd></dl></article>`).join('');
+  }
+  function allSavedItems() {
+    const unique=new Map([...data.scenarios.flatMap(s=>s.items),...current()].map(i=>[i.identity,i]));
+    return sorted([...unique.values()].filter(i=>saved.has(i.identity)));
+  }
+  function renderSaved() {
+    const rows=allSavedItems();
+    $('#saved-count').textContent=rows.length;
+    $('#saved-list').innerHTML=rows.length?rows.map(issueCard).join(''):empty('아직 보관한 이슈가 없습니다.','이슈 카드의 별표를 누르면 이 브라우저에서 다시 확인할 수 있습니다.','☆');
+    $('#clear-saved').disabled=!rows.length;
+  }
+  function persistSaved() {
+    try { localStorage.setItem(storageKey,JSON.stringify([...saved])); }
+    catch { toast('브라우저 저장이 제한되어 이번 화면에서만 보관합니다.'); }
+  }
+  function showDetail(id, opener) {
+    const item=current().find(i=>i.identity===id)||allSavedItems().find(i=>i.identity===id);
+    if(!item) return;
+    $('#dialog-content').innerHTML=`<div class="issue-card-meta">${badge(item)}<span>${esc(item.source_org)} · 가상 샘플</span></div><h2 id="dialog-title" class="detail-title">${esc(item.title)}</h2><div class="detail-score"><div class="score-tile">중요도<strong>${item.importance_score}<small>점 · ${esc(item.importance)}</small></strong></div><div class="score-tile">관련성<strong>${item.relevance_score}<small>점</small></strong></div></div><section class="detail-section"><h3>핵심 요약 · 본문 발췌</h3><p>${esc(item.summary)}</p></section><section class="detail-section"><h3>영향 영역</h3><p>${esc(item.impact_areas)}</p></section><section class="detail-section"><h3>준법지원팀 검토 포인트</h3><p>${esc(item.review_points)}</p></section><section class="detail-section"><h3>점수 산정 근거</h3><p>${esc(item.rule_reasons||'일치 규칙 없음')}</p></section>${item.status_transition?`<section class="detail-section"><h3>처리 상태 변화</h3><p>${esc(item.status_transition)}</p></section>`:''}<section class="detail-section"><h3>본문 변경 비교</h3>${item.diff?`<pre>${esc(item.diff)}</pre>`:'<p>이전 본문과의 차이가 없거나 첫 수집 문서입니다.</p>'}</section><p class="detail-disclaimer">이 자료는 체험을 위한 가상 문서입니다. 실제 법률 판단에 사용하지 마세요. 분석 엔진: Rule Engine · 기준일 ${esc(data.date)}</p>`;
+    const dialog=$('#issue-dialog');
+    dialog.showModal();
+    dialog.addEventListener('close',()=>opener?.isConnected&&opener.focus(),{once:true});
+  }
+  function renderAll() { renderMetrics(); renderIssues(); renderBriefing(); renderSaved(); }
+  function switchScenario(value) {
+    if(!data.scenarios.some(s=>s.id===value)) return;
+    scenario=value;
+    $$('.scenario-switch button').forEach(b=>{b.classList.toggle('selected',b.dataset.scenario===value);b.setAttribute('aria-pressed',String(b.dataset.scenario===value));});
+    renderAll();
+    toast(value==='changes'?'본문 변경·처리 완료·신규 이슈를 불러왔습니다.':'첫 수집 샘플로 돌아왔습니다.');
+  }
+  function setView(view, updateHash=true) {
+    activeView=Object.hasOwn(viewLabels,view)?view:'monitor';
+    $$('.view').forEach(v=>{v.hidden=v.id!==`view-${activeView}`;});
+    $$('.nav-item').forEach(b=>{b.classList.toggle('active',b.dataset.view===activeView);b.setAttribute('aria-current',b.dataset.view===activeView?'page':'false');});
+    $('#page-label').textContent=viewLabels[activeView];
+    document.title=`${viewLabels[activeView]} · Compliance AX`;
+    if(updateHash&&location.hash!==`#${activeView}`) location.hash=activeView;
+  }
+  document.addEventListener('click',event=>{
+    const open=event.target.closest('[data-open]');
+    if(open) return showDetail(open.dataset.open,open);
+    const save=event.target.closest('[data-save]');
+    if(save){ const id=save.dataset.save; if(saved.has(id)){saved.delete(id);toast('보관을 해제했습니다.');}else{saved.add(id);toast('검토 보관함에 저장했습니다.');} persistSaved();renderIssues();renderSaved(); const replacement=$(`#view-${activeView} [data-save="${id}"]`);replacement?.focus();return; }
+    const nav=event.target.closest('[data-view]');
+    if(nav){setView(nav.dataset.view);return;}
+    const toggle=event.target.closest('[data-scenario]');
+    if(toggle) switchScenario(toggle.dataset.scenario);
+  });
+  ['search','importance-filter','status-filter','relevant-only'].forEach(id=>$('#'+id).addEventListener(id==='search'?'input':'change',renderIssues));
+  $('#sample-date').textContent=data.date.replaceAll('-','.');
+  $('#run-demo').addEventListener('click',()=>{switchScenario(scenario==='initial'?'changes':'initial');});
+  $('#open-briefing').addEventListener('click',()=>setView('briefing'));
+  $('#clear-saved').addEventListener('click',()=>{saved.clear();persistSaved();renderSaved();renderIssues();toast('검토 보관함을 비웠습니다.');});
+  $('#download-briefing').addEventListener('click',()=>{
+    const blob=new Blob([buildBriefingMarkdown()],{type:'text/markdown;charset=utf-8'});
+    const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`compliance_brief_${data.date}_${scenario}.md`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);toast('브리핑 파일을 저장했습니다.');
+  });
+  $('#close-dialog').addEventListener('click',()=>$('#issue-dialog').close());
+  $('#issue-dialog').addEventListener('click',event=>{if(event.target===$('#issue-dialog')){const r=event.target.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom) event.target.close();}});
+  window.addEventListener('hashchange',()=>setView(location.hash.slice(1),false));
+  renderAll();setView(location.hash.slice(1)||'monitor',false);
+})();
+</script>
+</body>
+</html>

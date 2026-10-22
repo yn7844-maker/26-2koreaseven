@@ -22,3 +22,13 @@
 설정 초안 저장 항목: install_script, start_skill, 공식기관 5개 허용 도메인, LAW_API_OC/ASSEMBLY_API_KEY 선택 변수 요구사항과 로컬 Ollama 기본 주소/모델. FTC_API_KEY/PIPC_API_KEY는 예약 변수이므로 불필요한 키 요구사항을 등록하지 않았습니다.
 
 남은 범위: 공정위/개인정보위 전용 API, 법령 조문별 이력, 법령 상태 코드 전체 매핑, 국회 상세 제안이유·주요내용 및 정밀 심사 단계·전수 페이지네이션. 시스템 정보/README에서 미연동 상태를 명시합니다. 공공 API 어댑터가 있다는 사실과 실 API 사용 승인이 확인된 상태를 구분합니다.
+
+## 공유용 웹 버전 추가 검증
+
+- `node compliance-ax-demo/web/build.mjs`: 외부 의존성 없이 단일 HTML 빌드 성공.
+- Playwright + 실제 시스템 Chromium: **3개 테스트 전부 통과**. 검색/중요도/변경 상태 필터, 상세 창과 본문 diff, 보관함 재로드, Markdown 다운로드 내용, 모바일 가로 넘침 없음, localStorage 차단 시 동작을 확인했습니다.
+- 브라우저 요청 관찰: 외부 API/LLM 요청 0건. Python 분석 결과를 미리 만든 가상 fixture만 사용합니다.
+- 데스크톱 1440px/모바일 390px 스크린샷을 직접 확인했습니다.
+- 기존 Python 테스트도 다시 9개 통과했습니다.
+- Vercel용 root `vercel.json`과 설치 없는 정적 빌드를 준비했습니다. Vercel 계정/토큰 연결이 없어 실제 Vercel 게시와 `.vercel.app` 주소 발급은 **미완료**입니다.
+- GitHub HTML 공유 서비스(raw.githack.com/rawcdn.githack.com)와 Vercel 웹 접속은 이 런타임의 프록시에서 HTTP tunnel 403으로 제한되었습니다. 공개 링크의 외부 응답을 현재 런타임에서 검증한 것으로 표현하지 않습니다. 해당 도메인 허용을 설정 초안에 추가했으며 현재 런타임에 적용되었다고 주장하지 않습니다.

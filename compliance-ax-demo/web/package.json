@@ -1,0 +1,13 @@
+{
+  "name": "compliance-ax-web-demo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1"
+  },
+  "engines": {"node": ">=20"}
+}
