@@ -1,0 +1,13 @@
+{
+  "name": "fieldnotes-archive",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node dev.mjs",
+    "test": "node test/api.test.js"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
