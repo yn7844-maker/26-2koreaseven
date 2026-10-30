@@ -1,21 +1,17 @@
 const $ = s => document.querySelector(s);
 const categories = ['프로젝트','학습·실험','자료·인사이트','주간 회고'];
-const icons = ['⌘','⚗','↗','↺'];
+const icons = ['▱','◇','↗','↺'];
 const templates = {
  '프로젝트':'해결하려는 문제\n\n내 역할과 목표\n\n사용 데이터와 도구\n\n진행 과정과 의사결정\n\n결과와 피드백\n\n배운 점과 다음 단계\n',
  '학습·실험':'질문과 가설\n\n데이터와 실험 환경\n\n시도한 방법 / 모델 / 프롬프트\n\n평가 기준\n\n결과와 해석\n\n한계와 다음 실험\n',
  '자료·인사이트':'핵심 내용\n\n나의 생각\n\n업무에 적용할 아이디어\n',
  '주간 회고':'이번 주에 한 일\n\n새롭게 배운 것\n\n받은 피드백\n\n막혔던 점과 해결 과정\n\n다음 주에 시도할 것\n'
 };
-const sampleDate = new Date().toISOString();
-const samples = [
- {title:'RAG 파이프라인, 어디서부터 시작할까?',category:'프로젝트',content:'[예시 기록]\n\n해결하려는 문제\n흩어진 문서에서 필요한 답변을 빠르게 찾는 방법을 탐색한다.\n\n첫 번째 실험\n작은 문서 집합으로 검색 → 문맥 구성 → 답변 생성 흐름을 만들어 본다.\n\n다음 단계\n검색 결과의 관련성과 답변의 근거를 따로 평가해 보기.',tags:['LLM','RAG'],status:'진행 중',pinned:true},
- {title:'좋은 분석은 좋은 질문에서 시작한다',category:'자료·인사이트',content:'[예시 기록]\n\n같은 데이터를 보더라도 어떤 질문을 던지느냐에 따라 분석의 방향이 달라진다.\n\n나의 생각\n쿼리를 작성하기 전에 “이 결과로 어떤 결정을 내릴 것인가?”를 한 줄로 적어보자.',tags:['데이터 분석','문제 정의'],status:'기록',pinned:true},
- {title:'SQL 윈도우 함수 직접 써보기',category:'학습·실험',content:'[예시 기록]\n\n질문\n그룹별 상위 항목을 찾으려면?\n\n방법\nROW_NUMBER() OVER (PARTITION BY category ORDER BY value DESC)\n\n배운 점\nGROUP BY와 달리 각 행을 유지하면서 그룹 안의 순서를 계산할 수 있다. 동점 처리 방식에 따라 RANK와 DENSE_RANK도 비교해 보자.',tags:['SQL','데이터 분석'],status:'완료',pinned:false},
- {title:'첫 주의 질문들, 그리고 작은 발견',category:'주간 회고',content:'[예시 기록]\n\n이번 주에 한 일\n업무 흐름을 파악하고 자주 쓰는 용어를 정리했다.\n\n배운 점\n모르는 것을 바로 질문할 수 있도록, 먼저 이해한 내용을 한 줄로 정리하면 좋다.\n\n다음 주에 시도할 것\n작은 업무 하나를 처음부터 끝까지 기록해 보기.',tags:['회고','온보딩'],status:'기록',pinned:false},
- {title:'프롬프트 비교 실험을 남기는 방법',category:'학습·실험',content:'[예시 기록]\n\n가설\n출력 형식과 예시를 명시하면 결과의 일관성이 좋아질까?\n\n기록할 항목\n모델 버전, 실행 날짜, 입력, 프롬프트, 평가 기준, 결과.\n\n한계\n한 번의 결과로 결론 내리기보다 동일한 조건에서 여러 입력으로 비교하자.',tags:['LLM','프롬프트'],status:'진행 중',pinned:false},
- {title:'다음에 다시 읽고 싶은 AI 자료',category:'자료·인사이트',content:'[예시 기록]\n\n자료를 저장할 때 링크와 함께 세 가지를 적어두자.\n\n1. 어떤 내용을 다루는가?\n2. 지금 내게 왜 필요한가?\n3. 업무에서 어떻게 적용할 수 있을까?\n\n저장한 자료를 일주일에 한 번 돌아보면 내 생각과 연결하기 쉽다.',tags:['리서치','AI'],status:'기록',pinned:false}
-].map((e,i)=>({...e,id:'sample-'+i,link:'',createdAt:sampleDate,updatedAt:sampleDate,sample:true}));
+const example = {
+ id: 'guide-example', sample: true, title: '하나의 발견을 기록으로 남기는 방법',
+ category: '학습·실험', tags: ['작성 예시'], status: '기록', pinned: false, link: '',
+ content: '이 글은 작성 방법을 보여주는 안내용 예시입니다. 실제 프로젝트나 개인 활동을 나타내지 않으며 내 기록에 저장되지 않습니다.\n\n01. 무엇이 궁금했나요?\n알고 싶은 질문이나 해결하고 싶은 문제를 적어보세요.\n\n02. 무엇을 시도했나요?\n읽은 자료, 사용한 도구, 직접 해본 과정을 간단히 남겨요.\n\n03. 어떤 생각이 들었나요?\n새로 알게 된 점이나 아직 헷갈리는 점을 적어보세요.\n\n04. 다음에는?\n이어 해보고 싶은 것 한 가지만 남기면 충분해요.'
+};
 let entries=[], mode='loading', page='대시보드', filter='전체', tag='', query='', sort='updated', listView=false, adminPassword='', editingId=null, saving=false, draftTimer, toastTimer;
 let authNext=null;
 const esc = v => String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -33,7 +29,7 @@ async function init(){
  try{
   const response=await fetch('/api/archive?status=1',{signal:AbortSignal.timeout(12000)});if(!response.ok)throw Error();const status=await response.json();
   if(status.ready){mode='online';entries=(await api()).entries;notice('온라인 저장 · 모든 기록은 공개됩니다. 작성과 수정은 관리자 모드에서 할 수 있어요.');}
-  else {mode='demo';entries=localRead('fieldnotes:demo',samples);if(!Array.isArray(entries))entries=structuredClone(samples);notice('체험 모드 · 예시가 포함되어 있어요. 변경 내용은 이 브라우저에만 저장됩니다.','온라인 저장 연결',()=>$('#setup').showModal());}
+  else {mode='demo';entries=localRead('fieldnotes:demo',[]);if(!Array.isArray(entries))entries=[];entries=entries.filter(e=>e.sample!==true);notice('로컬 모드 · 지금 작성한 기록은 이 브라우저에 저장돼요.');}
  }catch{mode='error';entries=[];notice('기록을 불러오지 못했어요. 네트워크 또는 저장소 연결을 확인해 주세요.','다시 시도',init);}
  render();
 }
@@ -43,21 +39,22 @@ function navigation(){
  $('#navigation').querySelectorAll('button').forEach(b=>b.onclick=()=>{page=b.dataset.page;filter='전체';tag='';render();});
 }
 function render(){
- navigation();$('#crumb').textContent=page;$('#page-title').innerHTML=(page==='대시보드'?'배움을 쌓는 공간':esc(page))+'<span class="accent">.</span>';
- $('#page-description').textContent=({'대시보드':'오늘의 발견을 기록하고, 내일의 인사이트로 연결해요.','전체 기록':'쌓아온 생각과 배움을 한곳에서 살펴보세요.','프로젝트':'문제에서 시작해, 나만의 해결 과정을 남겨요.','학습·실험':'작은 가설과 시도도 다음 실험의 출발점이 됩니다.','자료·인사이트':'좋은 자료에 나의 관점을 더해보세요.','주간 회고':'한 주의 배움을 돌아보고 다음 걸음을 준비해요.','즐겨찾기':'다시 꺼내 보고 싶은 생각들을 모았어요.'})[page];
- $('#connection').textContent=({loading:'연결 확인 중',demo:'◌ 체험 모드',online:'● 온라인 저장',error:'○ 연결 오류'})[mode];
+ navigation();$('#crumb').textContent=page;$('#page-title').innerHTML=page==='대시보드'?'작은 발견을,<br>나만의 관점으로.':esc(page)+'<span class="accent">.</span>';
+ $('#intro').classList.toggle('compact',page!=='대시보드');
+ $('#page-description').textContent=({'대시보드':'배운 것, 시도한 것, 다시 꺼내 보고 싶은 생각들. 아직 정리되지 않은 한 줄부터 남겨보세요.','전체 기록':'쌓아온 생각과 배움을 한곳에서 살펴보세요.','프로젝트':'문제에서 시작해, 나만의 해결 과정을 남겨요.','학습·실험':'작은 가설과 시도도 다음 실험의 출발점이 됩니다.','자료·인사이트':'좋은 자료에 나의 관점을 더해보세요.','주간 회고':'한 주의 배움을 돌아보고 다음 걸음을 준비해요.','즐겨찾기':'다시 꺼내 보고 싶은 생각들을 모았어요.'})[page];
+ $('#connection').textContent=({loading:'연결 확인 중',demo:'로컬 저장',online:'● 온라인 저장',error:'○ 연결 오류'})[mode];
  $('#admin-top').textContent=adminPassword?'작성 모드 종료':'작성 모드';
- $('#admin').textContent=adminPassword?'⚙  작성 모드 종료':'⚙  관리자 모드';
+ $('#admin').textContent=adminPassword?'작성 모드 종료':'관리자 모드';
  const weekAgo=Date.now()-7*86400000;
- const stats=[['전체 기록',entries.length,'차곡차곡 쌓아온 배움','▤'],['진행 중인 프로젝트',entries.filter(e=>e.category==='프로젝트'&&e.status==='진행 중').length,'하나씩 완성해 나가는 중','⌘'],['학습·실험 노트',entries.filter(e=>e.category==='학습·실험').length,'시도할수록 넓어지는 시야','⚗'],['최근 7일 기록',entries.filter(e=>new Date(e.createdAt).getTime()>=weekAgo).length,'작은 기록이 만드는 변화','↗']];
- $('#stats').innerHTML=stats.map(([name,value,note,icon])=>`<div class="stat"><div class="stat-name">${name}<span>${icon}</span></div><div class="stat-value">${value}<span class="sample-badge">${mode==='demo'?'체험':''}</span></div><div class="stat-note">${note}</div></div>`).join('');
+ const stats=[['나의 기록',entries.length],['즐겨찾기',entries.filter(e=>e.pinned).length],['최근 7일',entries.filter(e=>new Date(e.createdAt).getTime()>=weekAgo).length]];
+ $('#stats').innerHTML='<span class="stats-label">MY COLLECTION</span>'+stats.map(([name,value])=>`<div class="stat"><span class="stat-name">${name}</span><span class="stat-value">${String(value).padStart(2,'0')}</span></div>`).join('');
  $('#filters').innerHTML=['전체',...categories].map(c=>`<button class="filter ${filter===c?'active':''}" data-filter="${c}" aria-pressed="${filter===c}">${c}</button>`).join('');
  $('#filters').hidden=categories.includes(page);
  $('#filters').querySelectorAll('button').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;renderList();$('#filters').querySelectorAll('button').forEach(el=>{el.classList.toggle('active',el===b);el.setAttribute('aria-pressed',el===b);});});
  const tags=[...new Set(entries.flatMap(e=>e.tags))].slice(0,18);
- $('#tags').innerHTML=tags.length?tags.map(t=>`<button data-tag="${esc(t)}"># ${esc(t)}</button>`).join(''):'<span class="muted">기록에 태그를 붙여보세요.</span>';
+ $('#tags').innerHTML=tags.length?tags.map(t=>`<button data-tag="${esc(t)}"># ${esc(t)}</button>`).join(''):'<span class="muted">첫 기록에 태그를 더하면 여기에 모여요.</span>';
  $('#tags').querySelectorAll('button').forEach(b=>b.onclick=()=>{tag=b.dataset.tag;page='전체 기록';filter='전체';render();});
- $('#footer-count').textContent=mode==='demo'?'DEMO / 이 브라우저에만 저장':`총 ${entries.length}개의 기록 · 하나씩, 차곡차곡.`;
+ $('#footer-count').textContent=mode==='demo'?'LOCAL MODE / 이 브라우저에 저장':`총 ${entries.length}개의 기록 · 하나씩, 차곡차곡.`;
  renderList();
 }
 function renderList(){
@@ -67,15 +64,15 @@ function renderList(){
  $('#active-tag').hidden=!tag;$('#active-tag').innerHTML=tag?`# ${esc(tag)} <button aria-label="태그 필터 해제">×</button>`:'';if(tag)$('#active-tag button').onclick=()=>{tag='';renderList();};
  $('#entries').classList.toggle('list',listView);
  if(mode==='loading'){$('#entries').innerHTML='<div class="loading">기록을 불러오는 중…</div>';return;}
- if(!found.length){$('#entries').innerHTML=`<div class="empty"><span>✳</span><h3>${mode==='error'?'잠시 연결이 끊어졌어요':query||tag?'일치하는 기록이 없어요':'아직 기록이 없어요'}</h3><p>${mode==='error'?'위의 다시 시도 버튼으로 기록을 불러와 주세요.':query||tag?'다른 검색어나 분류로 찾아보세요.':'첫 번째 배움을 여기에 남겨보세요.'}</p></div>`;return;}
+ if(!found.length){$('#entries').innerHTML=`<div class="empty"><div class="empty-mark" aria-hidden="true"><span>＋</span><i></i></div><span class="empty-eyebrow">${query||tag?'KEEP EXPLORING':'A FRESH PAGE'}</span><h3>${mode==='error'?'연결을 확인해 주세요':query||tag?'아직 찾는 기록이 없네요':page==='즐겨찾기'?'다시 보고 싶은 기록을 모아보세요':'첫 번째 기록을 기다리고 있어요'}</h3><p>${mode==='error'?'위의 다시 시도 버튼을 눌러주세요.':query||tag?'다른 키워드나 분류로 찾아보세요.':page==='즐겨찾기'?'글을 작성할 때 즐겨찾기에 고정할 수 있어요.':'짧은 메모, 유용한 링크, 문득 떠오른 질문.\n어떤 모양의 생각이든 괜찮아요.'}</p>${mode!=='error'&&!query&&!tag?'<button class="secondary" id="empty-write">＋ 첫 기록 남기기</button>':''}</div>`;const write=$('#empty-write');if(write)write.onclick=()=>requireAdmin(()=>openEditor());return;}
  $('#entries').innerHTML=found.map(e=>`<button class="entry-card" data-id="${esc(e.id)}"><div class="card-top"><span class="category c${categories.indexOf(e.category)}">${esc(e.category)}</span><span class="pin" aria-label="${e.pinned?'즐겨찾기':'기록'}">${e.pinned?'☆':'↗'}</span></div><h3>${esc(e.title)}</h3><p class="card-excerpt">${esc(e.content.replace('[예시 기록]','').trim())}</p><div class="card-tags">${e.tags.slice(0,4).map(t=>`<span>#${esc(t)}</span>`).join('')}</div><div class="card-footer"><span>${e.sample?'예시 · ':''}${date(e.updatedAt)}</span><span class="${e.status==='진행 중'?'status-progress':e.status==='완료'?'status-done':''}">${e.status==='진행 중'?'◔ ':e.status==='완료'?'✓ ':''}${esc(e.status)}</span></div></button>`).join('');
  $('#entries').querySelectorAll('.entry-card').forEach(b=>b.onclick=()=>openReader(b.dataset.id));
 }
 function download(filename,content,type='text/plain'){const a=document.createElement('a');const url=URL.createObjectURL(new Blob([content],{type}));a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 function safeLink(link){try{const u=new URL(link);return ['http:','https:'].includes(u.protocol)?u.href:'';}catch{return '';}}
-function openReader(id){const e=entries.find(e=>e.id===id);if(!e)return;const link=safeLink(e.link);
- $('#reader-content').innerHTML=`<div class="dialog-heading"><span class="category c${categories.indexOf(e.category)}">${esc(e.category)}</span><button class="icon-button" id="close-reader" aria-label="닫기">×</button></div><h2 class="reader-title">${esc(e.title)}</h2><div class="reader-meta">${e.sample?'예시 기록 · ':''}${date(e.updatedAt)} 수정 · ${esc(e.status)} ${e.pinned?'· ☆ 즐겨찾기':''}</div><div class="card-tags">${e.tags.map(t=>`<span>#${esc(t)}</span>`).join('')}</div>${link?`<a class="reader-link" href="${esc(link)}" target="_blank" rel="noopener noreferrer">↗ 참고 자료 열기</a>`:''}<div class="reader-body">${esc(e.content)}</div><div class="reader-toolbar"><button class="secondary" id="edit-entry">수정</button><button class="secondary" id="download-md">글 내려받기</button><button class="secondary danger" id="delete-entry">삭제</button></div>`;
- $('#close-reader').onclick=()=>$('#reader').close();$('#edit-entry').onclick=()=>{$('#reader').close();requireAdmin(()=>openEditor(e));};
+function openReader(id){const e=id===example.id?example:entries.find(e=>e.id===id);if(!e)return;const link=safeLink(e.link);
+ $('#reader-content').innerHTML=`<div class="dialog-heading"><span class="category c${categories.indexOf(e.category)}">${esc(e.category)}</span><button class="icon-button" id="close-reader" aria-label="닫기">×</button></div><h2 class="reader-title">${esc(e.title)}</h2><div class="reader-meta">${e.sample?'안내용 예시 · 내 기록에 포함되지 않음':date(e.updatedAt)+' 수정 · '+esc(e.status)+(e.pinned?' · ☆ 즐겨찾기':'')}</div><div class="card-tags">${e.tags.map(t=>`<span>#${esc(t)}</span>`).join('')}</div>${link?`<a class="reader-link" href="${esc(link)}" target="_blank" rel="noopener noreferrer">↗ 참고 자료 열기</a>`:''}<div class="reader-body">${esc(e.content)}</div><div class="reader-toolbar">${e.sample?'<button class="primary" id="use-template">이 형식으로 새 글 쓰기 ↗</button>':'<button class="secondary" id="edit-entry">수정</button><button class="secondary" id="download-md">글 내려받기</button><button class="secondary danger" id="delete-entry">삭제</button>'}</div>`;
+ $('#close-reader').onclick=()=>$('#reader').close();if(e.sample){$('#use-template').onclick=()=>{$('#reader').close();requireAdmin(()=>openEditor(null,'학습·실험'));};$('#reader').showModal();return;}$('#edit-entry').onclick=()=>{$('#reader').close();requireAdmin(()=>openEditor(e));};
  $('#download-md').onclick=()=>download(e.title.replace(/[^\p{L}\p{N}\s_-]/gu,'').slice(0,80)+'.md',`# ${e.title}\n\n${e.category} | ${e.tags.join(', ')}\n\n${e.content}\n\n${link}`,'text/markdown');
  $('#delete-entry').onclick=()=>{$('#reader').close();requireAdmin(()=>removeEntry(e));};$('#reader').showModal();
 }
@@ -104,6 +101,7 @@ async function saveEntry(event){event.preventDefault();if(saving)return;const da
  finally{saving=false;$('#save').disabled=false;$('#save').textContent='기록 저장';}
 }
 async function removeEntry(entry){if(!confirm(`“${entry.title}” 기록을 삭제할까요? 삭제 후 복구할 수 없어요.`))return;try{const next=entries.filter(e=>e.id!==entry.id);if(mode==='demo'){if(!localWrite('fieldnotes:demo',next))return;}else await api('DELETE',{id:entry.id});entries=next;render();toast('기록을 삭제했어요.');}catch(error){toast(error.message);}}
+$('#show-example').onclick=()=>openReader(example.id);
 $('#entry-form').onsubmit=saveEntry;
 $('#entry-form').oninput=()=>{clearTimeout(draftTimer);draftTimer=setTimeout(()=>{const f=$('#entry-form');const d={...formData(),tags:f.elements.tags.value};if(localWrite('fieldnotes:draft',d))$('#draft-status').textContent='미완성 글을 이 기기에 임시 저장했어요. 기록 저장 버튼으로 확정하세요.';},700);};
 $('#auth-form').onsubmit=async event=>{event.preventDefault();const button=event.submitter;button.disabled=true;adminPassword=$('#password').value;try{await api('POST',{action:'verify'});$('#auth').close();$('#password').value='';render();authNext?.();authNext=null;toast('작성 모드를 열었어요.');}catch(error){adminPassword='';$('#auth-error').textContent=error.message;}finally{button.disabled=false;}};
