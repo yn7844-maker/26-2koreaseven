@@ -39,15 +39,15 @@ function navigation(){
  $('#navigation').querySelectorAll('button').forEach(b=>b.onclick=()=>{page=b.dataset.page;filter='전체';tag='';render();});
 }
 function render(){
- navigation();$('#crumb').textContent=page;$('#page-title').innerHTML=page==='대시보드'?'작은 발견을,<br>나만의 관점으로.':esc(page)+'<span class="accent">.</span>';
+ navigation();$('#crumb').textContent=page;$('#page-title').innerHTML=esc(page);
  $('#intro').classList.toggle('compact',page!=='대시보드');
- $('#page-description').textContent=({'대시보드':'배운 것, 시도한 것, 다시 꺼내 보고 싶은 생각들. 아직 정리되지 않은 한 줄부터 남겨보세요.','전체 기록':'쌓아온 생각과 배움을 한곳에서 살펴보세요.','프로젝트':'문제에서 시작해, 나만의 해결 과정을 남겨요.','학습·실험':'작은 가설과 시도도 다음 실험의 출발점이 됩니다.','자료·인사이트':'좋은 자료에 나의 관점을 더해보세요.','주간 회고':'한 주의 배움을 돌아보고 다음 걸음을 준비해요.','즐겨찾기':'다시 꺼내 보고 싶은 생각들을 모았어요.'})[page];
+ $('#page-description').textContent=({'대시보드':'자료와 생각을 한곳에 정리하세요.','전체 기록':'쌓아온 생각과 배움을 한곳에서 살펴보세요.','프로젝트':'문제에서 시작해, 나만의 해결 과정을 남겨요.','학습·실험':'작은 가설과 시도도 다음 실험의 출발점이 됩니다.','자료·인사이트':'좋은 자료에 나의 관점을 더해보세요.','주간 회고':'한 주의 배움을 돌아보고 다음 걸음을 준비해요.','즐겨찾기':'다시 꺼내 보고 싶은 생각들을 모았어요.'})[page];
  $('#connection').textContent=({loading:'연결 확인 중',demo:'로컬 저장',online:'● 온라인 저장',error:'○ 연결 오류'})[mode];
  $('#admin-top').textContent=adminPassword?'작성 모드 종료':'작성 모드';
  $('#admin').textContent=adminPassword?'작성 모드 종료':'관리자 모드';
  const weekAgo=Date.now()-7*86400000;
- const stats=[['나의 기록',entries.length],['즐겨찾기',entries.filter(e=>e.pinned).length],['최근 7일',entries.filter(e=>new Date(e.createdAt).getTime()>=weekAgo).length]];
- $('#stats').innerHTML='<span class="stats-label">MY COLLECTION</span>'+stats.map(([name,value])=>`<div class="stat"><span class="stat-name">${name}</span><span class="stat-value">${String(value).padStart(2,'0')}</span></div>`).join('');
+ $('#stats').innerHTML=categories.map((name,i)=>`<button class="collection-card" data-collection="${name}"><span class="collection-icon">${icons[i]}</span><span class="collection-name">${name}<small>${['업무 과정과 결과물','배운 내용과 실험 기록','참고 링크와 아이디어','한 주의 배움과 계획'][i]}</small></span><span class="collection-count">${entries.filter(e=>e.category===name).length}</span></button>`).join('');
+ $('#stats').querySelectorAll('button').forEach(b=>b.onclick=()=>{page=b.dataset.collection;filter='전체';tag='';render();});
  $('#filters').innerHTML=['전체',...categories].map(c=>`<button class="filter ${filter===c?'active':''}" data-filter="${c}" aria-pressed="${filter===c}">${c}</button>`).join('');
  $('#filters').hidden=categories.includes(page);
  $('#filters').querySelectorAll('button').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;renderList();$('#filters').querySelectorAll('button').forEach(el=>{el.classList.toggle('active',el===b);el.setAttribute('aria-pressed',el===b);});});
@@ -64,7 +64,7 @@ function renderList(){
  $('#active-tag').hidden=!tag;$('#active-tag').innerHTML=tag?`# ${esc(tag)} <button aria-label="태그 필터 해제">×</button>`:'';if(tag)$('#active-tag button').onclick=()=>{tag='';renderList();};
  $('#entries').classList.toggle('list',listView);
  if(mode==='loading'){$('#entries').innerHTML='<div class="loading">기록을 불러오는 중…</div>';return;}
- if(!found.length){$('#entries').innerHTML=`<div class="empty"><div class="empty-mark" aria-hidden="true"><span>＋</span><i></i></div><span class="empty-eyebrow">${query||tag?'KEEP EXPLORING':'A FRESH PAGE'}</span><h3>${mode==='error'?'연결을 확인해 주세요':query||tag?'아직 찾는 기록이 없네요':page==='즐겨찾기'?'다시 보고 싶은 기록을 모아보세요':'첫 번째 기록을 기다리고 있어요'}</h3><p>${mode==='error'?'위의 다시 시도 버튼을 눌러주세요.':query||tag?'다른 키워드나 분류로 찾아보세요.':page==='즐겨찾기'?'글을 작성할 때 즐겨찾기에 고정할 수 있어요.':'짧은 메모, 유용한 링크, 문득 떠오른 질문.\n어떤 모양의 생각이든 괜찮아요.'}</p>${mode!=='error'&&!query&&!tag?'<button class="secondary" id="empty-write">＋ 첫 기록 남기기</button>':''}</div>`;const write=$('#empty-write');if(write)write.onclick=()=>requireAdmin(()=>openEditor());return;}
+ if(!found.length){$('#entries').innerHTML=`<div class="empty"><div class="empty-mark" aria-hidden="true"><span>＋</span><i></i></div><span class="empty-eyebrow">${query||tag?'KEEP EXPLORING':'A FRESH PAGE'}</span><h3>${mode==='error'?'연결을 확인해 주세요':query||tag?'아직 찾는 기록이 없네요':page==='즐겨찾기'?'다시 보고 싶은 기록을 모아보세요':'아직 작성한 기록이 없어요'}</h3><p>${mode==='error'?'위의 다시 시도 버튼을 눌러주세요.':query||tag?'다른 키워드나 분류로 찾아보세요.':page==='즐겨찾기'?'글을 작성할 때 즐겨찾기에 고정할 수 있어요.':'새 기록을 추가하거나 오른쪽에서 작성 예시를 확인하세요.'}</p>${mode!=='error'&&!query&&!tag?'<button class="secondary" id="empty-write">＋ 첫 기록 남기기</button>':''}</div>`;const write=$('#empty-write');if(write)write.onclick=()=>requireAdmin(()=>openEditor());return;}
  $('#entries').innerHTML=found.map(e=>`<button class="entry-card" data-id="${esc(e.id)}"><div class="card-top"><span class="category c${categories.indexOf(e.category)}">${esc(e.category)}</span><span class="pin" aria-label="${e.pinned?'즐겨찾기':'기록'}">${e.pinned?'☆':'↗'}</span></div><h3>${esc(e.title)}</h3><p class="card-excerpt">${esc(e.content.replace('[예시 기록]','').trim())}</p><div class="card-tags">${e.tags.slice(0,4).map(t=>`<span>#${esc(t)}</span>`).join('')}</div><div class="card-footer"><span>${e.sample?'예시 · ':''}${date(e.updatedAt)}</span><span class="${e.status==='진행 중'?'status-progress':e.status==='완료'?'status-done':''}">${e.status==='진행 중'?'◔ ':e.status==='완료'?'✓ ':''}${esc(e.status)}</span></div></button>`).join('');
  $('#entries').querySelectorAll('.entry-card').forEach(b=>b.onclick=()=>openReader(b.dataset.id));
 }
